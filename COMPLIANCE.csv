@@ -1,0 +1,71 @@
+id,part,requirement,file_path,artifact,status,notes
+C-01,Part 1,Capture route chosen and delivered (own iOS app),ios/CozmoCapture/,Xcode project,todo,Route 1
+C-02,Part 1,Build installable on their device in under 10 minutes,README.md,install section with timed steps,todo,Time on clean checkout
+C-03,Part 1,Photo tier: 2-8 stills per room from iPhone 15 or newer,ios/CozmoCapture/,photo capture mode,todo,
+C-04,Part 1,Photo tier: no depth and no poses in the data,ios/CozmoCapture/,export writes stills only,todo,Must be honestly poseless
+C-05,Part 1,Photo tier: one folder per room,ios/CozmoCapture/,per-room folder export,todo,
+C-06,Part 1,Video tier: handheld walkthrough clip from iPhone 15 or newer,ios/CozmoCapture/,video capture mode,todo,
+C-07,Part 1,LiDAR tier: depth poses and intrinsics on Pro devices,ios/CozmoCapture/,lidar capture mode,todo,
+C-08,Part 1,Device matrix: which tier runs on which hardware,protocol/device_matrix.md,table,todo,
+C-09,Part 1,Device matrix: what accuracy each tier honestly delivers,protocol/device_matrix.md,table,todo,Fill from benchmark
+C-10,Part 2,Dimensioned per-room plan with walls,pipeline/geometry/,JSON output,todo,
+C-11,Part 2,Ceiling height per room,pipeline/geometry/,JSON output,todo,
+C-12,Part 2,Floor area per room,pipeline/geometry/,JSON output,todo,
+C-13,Part 2,Openings detected and dimensioned,pipeline/geometry/,JSON output,todo,
+C-14,Part 2,Stitched multi-room plan with correct adjacency,pipeline/geometry/,JSON output,todo,
+C-15,Part 2,Per-surface damage regions with class and metric extent,pipeline/damage/,JSON output,todo,
+C-16,Part 2,Concealed damage flags with the rule that fired,pipeline/damage/,JSON output with rule ids,todo,
+C-17,Part 2,Scope line items keyed to surfaces,pipeline/damage/,JSON output,todo,
+C-18,Part 2,Confidence interval on every measurement,pipeline/uncertainty/,JSON output,todo,
+C-19,Part 2,One command per capture,Makefile,make run CAPTURE=,todo,
+C-20,Part 2,JSON conforms to published schema,pipeline/schema/,schema file plus validator,todo,
+C-21,Part 2,Rendered plan,pipeline/render/,SVG or PNG,todo,
+C-22,Part 2,Stitched whole-property plan produced from every tier including photos,pipeline/geometry/,JSON output,todo,Highest risk row
+C-23,Benchmark,One multi-room capture with three or more rooms plus a connector,benchmark/captures/,raw capture,todo,
+C-24,Benchmark,One furnished room with staged damage spanning two damage classes,benchmark/captures/,raw capture,todo,
+C-25,Benchmark,Same rooms captured at all three tiers including the multi-room set,benchmark/captures/,raw captures,todo,
+C-26,Benchmark,At least one room captured twice at the same tier,benchmark/captures/,raw captures,todo,Repeatability gate
+C-27,Benchmark,Tape or laser ground truth on everything,benchmark/ground_truth/,CSV,todo,Two independent passes
+C-28,Benchmark,Raw sensor data submitted,benchmark/captures/,raw files,todo,
+C-29,Gate,Opening widths within 2 cm on 85 percent or more of openings,benchmark/harness/,gate report,todo,Missed and phantom both count
+C-30,Gate,Ceiling height within 1.5 cm per room,benchmark/harness/,gate report,todo,
+C-31,Gate,Ceiling height spread across repeat captures within 1 cm,benchmark/harness/,gate report,todo,
+C-32,Gate,Report states whether error is repeatable-but-biased or unrepeatable,reports/technical_report.md,section,todo,
+C-33,Gate,Repeatability within 1 cm or 0.5 percent per wall,benchmark/harness/,repeatability table,todo,
+C-34,Gate,Drift handling described in report,reports/technical_report.md,section,todo,Poses used as-is is auto fail
+C-35,Gate,Drift ablation showing stitched footprint on and off,benchmark/harness/,ablation table,todo,
+C-36,Gate,Photo tier stitch: correct adjacency and no room overlaps,benchmark/harness/,gate report,todo,
+C-37,Gate,Photo tier footprint within 8 percent with calibrated intervals,benchmark/harness/,gate report,todo,
+C-38,Gate,Photo tier wall lengths within 8 percent,benchmark/harness/,gate report,todo,
+C-39,Gate,Video tier wall lengths within 3 percent,benchmark/harness/,gate report,todo,
+C-40,Gate,Calibration scored at every tier,benchmark/harness/,coverage analysis,todo,Interval coverage vs truth
+C-41,Part 3,Head to head on two benchmark rooms at LiDAR tier,benchmark/harness/,comparison table,todo,
+C-42,Part 3,Consumer app named with version and export submitted,benchmark/incumbent/,export files,todo,
+C-43,Part 3,Beat or tie on 70 percent or more of shared dimensions,benchmark/harness/,comparison table,todo,
+C-44,Part 4,Fix declaration: worst gate with failing number,reports/fix_declaration.md,one page,todo,Commit before fixing
+C-45,Part 4,Fix declaration: root cause hypothesis and evidence,reports/fix_declaration.md,one page,todo,
+C-46,Part 4,Fix declaration: fix to ship and predicted number,reports/fix_declaration.md,one page,todo,
+C-47,Part 4,Before run regenerable,benchmark/runs/before/,bundle,todo,
+C-48,Part 4,After run regenerable,benchmark/runs/after/,bundle,todo,
+C-49,Part 4,Readable diff between before and after,reports/fix_loop_diff.md,diff,todo,
+C-50,Part 5,Commit history shows incremental work,.git,history,in-progress,Commit every session
+C-51,Deliverable,Compliance matrix,COMPLIANCE.csv,this file,in-progress,
+C-52,Deliverable,Capture route artifact plus device matrix,protocol/,protocol and matrix,todo,
+C-53,Deliverable,Repo README to running in under 15 minutes on a clean machine,README.md,timed instructions,todo,
+C-54,Deliverable,Reproduction bundle regenerating every reported number,benchmark/runs/,bundle plus scripts,todo,
+C-55,Deliverable,Benchmark report with gates at all three tiers,reports/benchmark_report.md,report,todo,
+C-56,Deliverable,Benchmark report includes repeatability table,reports/benchmark_report.md,table,todo,
+C-57,Deliverable,Benchmark report includes head to head table,reports/benchmark_report.md,table,todo,
+C-58,Deliverable,Benchmark report includes timing,reports/benchmark_report.md,table,todo,
+C-59,Deliverable,Fix loop bundle,benchmark/runs/,bundle,todo,
+C-60,Deliverable,Technical report max 6 pages,reports/technical_report.md,report,todo,Hard page cap
+C-61,Deliverable,Raw benchmark data: sensor logs ground truth app exports,benchmark/,raw files,todo,
+C-62,Walk-in,All three tiers ready to run cold,Makefile,one command per tier,todo,30 percent of score
+C-63,Constraint,Handheld consumer capture only,ios/CozmoCapture/,capture app,todo,
+C-64,Constraint,Pretrained models datasets and APIs disclosed,reports/technical_report.md,disclosure section,todo,
+C-65,Constraint,Runs without calling our infrastructure,Makefile,offline run,todo,
+C-66,Constraint,Weights and large binaries fetched by script or volume,scripts/fetch_weights.sh,script,todo,
+C-67,Constraint,Mirrors handled and covered in submission,reports/technical_report.md,failure modes section,todo,
+C-68,Constraint,Glass handled and covered in submission,reports/technical_report.md,failure modes section,todo,
+C-69,Constraint,Wet-look surfaces handled and covered in submission,reports/technical_report.md,failure modes section,todo,
+C-70,Constraint,Low light handled and covered in submission,reports/technical_report.md,failure modes section,todo,
