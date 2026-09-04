@@ -1,0 +1,4 @@
+room_id,surface_id,type,pass_1_cm,pass_2_cm,notes
+room_01,,ceiling_height,236.0,,tape, single spot, needs re-measure
+room_01,door_1,opening_width,76.0,,tape, jamb to jamb
+room_01,door_1,opening_height,197.0,,tape
