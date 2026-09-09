@@ -1,0 +1,185 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Cozmo capture output contract v1",
+  "type": "object",
+  "required": ["capture_id", "tier", "device", "rooms", "property", "runtime"],
+  "properties": {
+    "capture_id": {"type": "string"},
+    "tier": {"enum": ["photo", "video", "lidar"]},
+    "schema_version": {"type": "string"},
+    "device": {
+      "type": "object",
+      "required": ["model", "system_version"],
+      "properties": {
+        "model": {"type": "string"},
+        "system_version": {"type": "string"},
+        "depth_available": {"type": "boolean"}
+      }
+    },
+    "runtime": {
+      "type": "object",
+      "properties": {
+        "seconds_total": {"type": "number"},
+        "seconds_ingest": {"type": "number"},
+        "seconds_geometry": {"type": "number"},
+        "frames_used": {"type": "integer"},
+        "frames_dropped_by_app": {"type": "integer"},
+        "frames_rejected_tracking": {"type": "integer"}
+      }
+    },
+    "disclosure": {
+      "type": "object",
+      "description": "Pretrained models, datasets and APIs used, per the constraints",
+      "properties": {
+        "models": {"type": "array", "items": {"type": "string"}},
+        "runs_offline": {"type": "boolean"}
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["room_id", "polygon", "ceiling_height", "floor_area", "walls"],
+        "properties": {
+          "room_id": {"type": "string"},
+          "polygon": {
+            "type": "array",
+            "description": "Closed floor outline in property coordinates, metres",
+            "items": {
+              "type": "array",
+              "items": {"type": "number"},
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "ceiling_height": {"$ref": "#/definitions/measurement"},
+          "floor_area": {"$ref": "#/definitions/measurement"},
+          "walls": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["surface_id", "length", "start", "end"],
+              "properties": {
+                "surface_id": {"type": "string"},
+                "length": {"$ref": "#/definitions/measurement"},
+                "start": {"type": "array", "items": {"type": "number"}},
+                "end": {"type": "array", "items": {"type": "number"}},
+                "plane_residual_mm": {"type": "number"},
+                "point_support": {"type": "integer"}
+              }
+            }
+          },
+          "openings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["opening_id", "surface_id", "kind", "width"],
+              "properties": {
+                "opening_id": {"type": "string"},
+                "surface_id": {"type": "string"},
+                "kind": {"enum": ["door", "window", "pass_through", "unknown"]},
+                "width": {"$ref": "#/definitions/measurement"},
+                "height": {"$ref": "#/definitions/measurement"},
+                "sill_height": {"$ref": "#/definitions/measurement"},
+                "centre_along_wall": {"type": "number"},
+                "leads_to": {"type": ["string", "null"]},
+                "detection_score": {"type": "number"}
+              }
+            }
+          },
+          "damage": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["damage_id", "surface_id", "damage_class", "extent_m2"],
+              "properties": {
+                "damage_id": {"type": "string"},
+                "surface_id": {"type": "string"},
+                "damage_class": {"type": "string"},
+                "extent_m2": {"$ref": "#/definitions/measurement"},
+                "bbox_on_surface": {"type": "array", "items": {"type": "number"}},
+                "classifier_score": {"type": "number"}
+              }
+            }
+          },
+          "concealed_damage_flags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["flag_id", "rule_id", "surface_id", "rationale"],
+              "properties": {
+                "flag_id": {"type": "string"},
+                "rule_id": {"type": "string"},
+                "surface_id": {"type": "string"},
+                "rationale": {"type": "string"},
+                "triggered_by": {"type": "array", "items": {"type": "string"}}
+              }
+            }
+          }
+        }
+      }
+    },
+    "property": {
+      "type": "object",
+      "description": "The stitched whole-property plan. This is the product surface.",
+      "required": ["adjacency", "total_floor_area"],
+      "properties": {
+        "total_floor_area": {"$ref": "#/definitions/measurement"},
+        "footprint_bbox": {"type": "array", "items": {"type": "number"}},
+        "adjacency": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["room_a", "room_b"],
+            "properties": {
+              "room_a": {"type": "string"},
+              "room_b": {"type": "string"},
+              "via_opening": {"type": ["string", "null"]},
+              "confidence": {"type": "number"}
+            }
+          }
+        },
+        "drift_handling": {
+          "type": "object",
+          "properties": {
+            "method": {"type": "string"},
+            "enabled": {"type": "boolean"},
+            "loop_closures": {"type": "integer"},
+            "residual_after_closure_m": {"type": "number"}
+          }
+        }
+      }
+    },
+    "scope_line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["line_item_id", "surface_id", "description", "quantity", "unit"],
+        "properties": {
+          "line_item_id": {"type": "string"},
+          "surface_id": {"type": "string"},
+          "damage_id": {"type": ["string", "null"]},
+          "description": {"type": "string"},
+          "quantity": {"$ref": "#/definitions/measurement"},
+          "unit": {"enum": ["m2", "m", "each"]}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "measurement": {
+      "type": "object",
+      "description": "Every measurement carries an interval. ci_low and ci_high are the bounds at ci_level; method records how the interval was produced so the calibration analysis can be reproduced.",
+      "required": ["value", "unit", "ci_low", "ci_high", "ci_level"],
+      "properties": {
+        "value": {"type": "number"},
+        "unit": {"enum": ["m", "m2", "cm", "deg"]},
+        "ci_low": {"type": "number"},
+        "ci_high": {"type": "number"},
+        "ci_level": {"type": "number", "default": 0.9},
+        "method": {"type": "string"},
+        "n_points": {"type": "integer"}
+      }
+    }
+  }
+}
