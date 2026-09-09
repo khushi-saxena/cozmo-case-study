@@ -101,7 +101,16 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
     if drift_correction:
         poses, drift_info = loop_closure_correction(poses)
 
-    pts, used, rejected, manifest = build_cloud(capture, poses, stride, voxel)
+    manifest = json.loads((capture / "manifest.json").read_text())
+    ingest_info = {}
+    if tier == "lidar":
+        pts, used, rejected, manifest = build_cloud(capture, poses, stride, voxel)
+    elif tier == "video":
+        from pipeline.ingest import video as video_ingest
+        pts, ingest_info = video_ingest.build_cloud(capture, stride=max(stride, 6), voxel=voxel)
+        used, rejected = ingest_info["frames_used"], 0
+    else:
+        return run_photo(capture, out_dir, manifest, t0)
     t_ingest = time.time() - t0
 
     idx, nm = normals(pts)
@@ -195,7 +204,10 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
                     "frames_used": used,
                     "frames_dropped_by_app": manifest["dropped_frames"],
                     "frames_rejected_tracking": rejected},
-        "disclosure": {"models": [], "runs_offline": True},
+        "disclosure": {"models": [ingest_info["model"]] if "model" in ingest_info else [],
+                       "runs_offline": True,
+                       **({"video_scale_from_motion": ingest_info["scale_from_motion"]}
+                          if "scale_from_motion" in ingest_info else {})},
         "rooms": rooms,
         "property": {
             "total_floor_area": measurement(total, 0.08 * total + 0.1, "m2", "sum of rooms"),
@@ -211,6 +223,77 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
 
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+    (out_dir / "output.json").write_text(json.dumps(out, indent=2))
+    render_svg(out, out_dir / "plan.svg")
+    return out
+
+
+def run_photo(capture, out_dir, manifest, t0):
+    """Photo tier: per-room folders of stills, no poses, no depth. Each room is
+    measured on its own; adjacency comes from the capture protocol's folder
+    order (rooms are captured in walking order, each connected to the last)."""
+    from pipeline.ingest import photo as photo_ingest
+    from pipeline.ingest import monodepth
+    stills_root = capture / "stills"
+    folders = sorted(d for d in stills_root.iterdir() if d.is_dir())
+    rooms, prev = [], None
+    adj = []
+    for i, folder in enumerate(folders, 1):
+        m = photo_ingest.measure_room(folder)
+        if m is None:
+            continue
+        room_id = f"room_{i}"
+        ex, ez = m["extent_x"], m["extent_z"]
+        # a still only ever sees part of the room, so the extent is a lower
+        # bound; the interval is wide and skewed upward to say so
+        poly = [[0.0, 0.0], [ex, 0.0], [ex, ez], [0.0, ez]]
+        ch = m["ceiling_height"]
+        rooms.append({
+            "room_id": room_id,
+            "source_folder": folder.name,
+            "polygon": poly,
+            "ceiling_height": measurement(ch if ch else 2.4,
+                                          0.20 if ch else 0.40, "m",
+                                          f"median of {m['ceiling_from_n_stills']} stills with floor and ceiling visible"
+                                          if ch else "no still saw both floor and ceiling; prior 2.4 m",
+                                          m["n_usable"]),
+            "floor_area": {"value": ex * ez, "unit": "m2",
+                           "ci_low": ex * ez, "ci_high": ex * ez * 1.6, "ci_level": 0.9,
+                           "method": "product of max lateral extents seen in any still; lower bound"},
+            "walls": [{"surface_id": f"{room_id}_wall_{k + 1}",
+                       "length": {"value": L, "unit": "m", "ci_low": L, "ci_high": L * 1.3,
+                                  "ci_level": 0.9, "method": "max extent in any still; lower bound"},
+                       "start": poly[k], "end": poly[(k + 1) % 4]}
+                      for k, L in enumerate([ex, ez, ex, ez])],
+            "openings": [], "damage": [], "concealed_damage_flags": [],
+            "photo_tier_detail": {"n_stills": m["n_stills"], "n_usable": m["n_usable"],
+                                  "ceiling_height_spread_across_stills": m["ceiling_height_spread"]},
+        })
+        if prev is not None:
+            adj.append({"room_a": prev, "room_b": room_id, "via_opening": None,
+                        "confidence": 0.5,
+                        "basis": "capture protocol: rooms photographed in walking order"})
+        prev = room_id
+
+    total = sum(r["floor_area"]["value"] for r in rooms)
+    out = {
+        "capture_id": manifest["capture_id"], "tier": "photo", "schema_version": "1",
+        "device": {"model": manifest["device_model"], "system_version": manifest["system_version"],
+                   "depth_available": False},
+        "runtime": {"seconds_total": round(time.time() - t0, 2), "frames_used": sum(r["photo_tier_detail"]["n_usable"] for r in rooms),
+                    "frames_dropped_by_app": 0, "frames_rejected_tracking": 0},
+        "disclosure": {"models": [monodepth.MODEL_ID], "runs_offline": True,
+                       "focal_length_px": photo_ingest.DEFAULT_FX,
+                       "note": "no poses, no depth; per-still monocular metric depth; extents are lower bounds"},
+        "rooms": rooms,
+        "property": {"total_floor_area": {"value": total, "unit": "m2", "ci_low": total,
+                                          "ci_high": total * 1.6, "ci_level": 0.9, "method": "sum of lower bounds"},
+                     "adjacency": adj,
+                     "drift_handling": {"method": "n/a, no poses at photo tier", "enabled": False,
+                                        "loop_closures": 0, "residual_after_closure_m": 0.0}},
+        "scope_line_items": [],
+    }
+    out_dir = Path(out_dir); out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "output.json").write_text(json.dumps(out, indent=2))
     render_svg(out, out_dir / "plan.svg")
     return out
