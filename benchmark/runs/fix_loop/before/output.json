@@ -8,9 +8,9 @@
     "depth_available": true
   },
   "runtime": {
-    "seconds_total": 7.5,
-    "seconds_ingest": 3.32,
-    "seconds_geometry": 4.19,
+    "seconds_total": 7.44,
+    "seconds_ingest": 3.22,
+    "seconds_geometry": 4.22,
     "frames_used": 102,
     "frames_dropped_by_app": 0,
     "frames_rejected_tracking": 0
