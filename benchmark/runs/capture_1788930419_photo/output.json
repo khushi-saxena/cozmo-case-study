@@ -8,7 +8,7 @@
     "depth_available": false
   },
   "runtime": {
-    "seconds_total": 20.42,
+    "seconds_total": 20.23,
     "frames_used": 7,
     "frames_dropped_by_app": 0,
     "frames_rejected_tracking": 0
@@ -31,16 +31,16 @@
           0.0
         ],
         [
-          6.595647896287752,
+          4.162074070266236,
           0.0
         ],
         [
-          6.595647896287752,
-          5.507936654781587
+          4.162074070266236,
+          2.6415838965324014
         ],
         [
           0.0,
-          5.507936654781587
+          2.6415838965324014
         ]
       ],
       "ceiling_height": {
@@ -53,10 +53,10 @@
         "n_points": 7
       },
       "floor_area": {
-        "value": 36.32841080999637,
+        "value": 10.994467840190355,
         "unit": "m2",
-        "ci_low": 36.32841080999637,
-        "ci_high": 58.125457295994195,
+        "ci_low": 10.994467840190355,
+        "ci_high": 17.59114854430457,
         "ci_level": 0.9,
         "method": "product of max lateral extents seen in any still; lower bound"
       },
@@ -64,10 +64,10 @@
         {
           "surface_id": "room_1_wall_1",
           "length": {
-            "value": 6.595647896287752,
+            "value": 4.162074070266236,
             "unit": "m",
-            "ci_low": 6.595647896287752,
-            "ci_high": 8.574342265174078,
+            "ci_low": 4.162074070266236,
+            "ci_high": 5.410696291346107,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
@@ -76,61 +76,61 @@
             0.0
           ],
           "end": [
-            6.595647896287752,
+            4.162074070266236,
             0.0
           ]
         },
         {
           "surface_id": "room_1_wall_2",
           "length": {
-            "value": 5.507936654781587,
+            "value": 2.6415838965324014,
             "unit": "m",
-            "ci_low": 5.507936654781587,
-            "ci_high": 7.160317651216063,
+            "ci_low": 2.6415838965324014,
+            "ci_high": 3.434059065492122,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
           "start": [
-            6.595647896287752,
+            4.162074070266236,
             0.0
           ],
           "end": [
-            6.595647896287752,
-            5.507936654781587
+            4.162074070266236,
+            2.6415838965324014
           ]
         },
         {
           "surface_id": "room_1_wall_3",
           "length": {
-            "value": 6.595647896287752,
+            "value": 4.162074070266236,
             "unit": "m",
-            "ci_low": 6.595647896287752,
-            "ci_high": 8.574342265174078,
+            "ci_low": 4.162074070266236,
+            "ci_high": 5.410696291346107,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
           "start": [
-            6.595647896287752,
-            5.507936654781587
+            4.162074070266236,
+            2.6415838965324014
           ],
           "end": [
             0.0,
-            5.507936654781587
+            2.6415838965324014
           ]
         },
         {
           "surface_id": "room_1_wall_4",
           "length": {
-            "value": 5.507936654781587,
+            "value": 2.6415838965324014,
             "unit": "m",
-            "ci_low": 5.507936654781587,
-            "ci_high": 7.160317651216063,
+            "ci_low": 2.6415838965324014,
+            "ci_high": 3.434059065492122,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
           "start": [
             0.0,
-            5.507936654781587
+            2.6415838965324014
           ],
           "end": [
             0.0,
@@ -150,10 +150,10 @@
   ],
   "property": {
     "total_floor_area": {
-      "value": 36.32841080999637,
+      "value": 10.994467840190355,
       "unit": "m2",
-      "ci_low": 36.32841080999637,
-      "ci_high": 58.125457295994195,
+      "ci_low": 10.994467840190355,
+      "ci_high": 17.59114854430457,
       "ci_level": 0.9,
       "method": "sum of lower bounds"
     },

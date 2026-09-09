@@ -26,7 +26,7 @@ DEFAULT_FX = 1365.0
 DEFAULT_RES = (1920, 1440)
 
 
-def unproject_cam(depth, fx, fy, cx, cy, z_max=8.0):
+def unproject_cam(depth, fx, fy, cx, cy, z_max=4.0):
     h, w = depth.shape
     u, v = np.meshgrid(np.arange(w), np.arange(h))
     keep = (depth > 0.3) & (depth < z_max)
@@ -113,9 +113,14 @@ def measure_still(image, fx=DEFAULT_FX, downscale=4):
     ceiling_y = float(np.median(top)) if len(top) > 50 and (hi - lo) > 1.8 else None
 
     # lateral extent of what this still can see, at mid-height
-    band = P[(P[:, 1] > floor_y + 0.4) & (P[:, 1] < floor_y + 2.0)]
-    ext_x = float(np.ptp(band[:, 0])) if len(band) else 0.0
-    ext_z = float(np.ptp(band[:, 2])) if len(band) else 0.0
+    # 5-95 percentile span, not min-max: monocular depth throws a few points
+    # far past the walls and those would otherwise set the room size
+    band = P[(P[:, 1] > floor_y + 0.4) & (P[:, 1] < floor_y + 2.0) & (P[:, 2] < 4.0)]
+    if len(band) > 100:
+        ext_x = float(np.diff(np.percentile(band[:, 0], [10, 90]))[0])
+        ext_z = float(np.diff(np.percentile(band[:, 2], [10, 90]))[0])
+    else:
+        ext_x = ext_z = 0.0
 
     return {
         "floor_y": floor_y,
@@ -140,6 +145,7 @@ def measure_room(folder, max_stills=8):
     if not results:
         return None
 
+    best = max(results, key=lambda r: r["extent_x"] * r["extent_z"])
     heights = [r["ceiling_height"] for r in results if r["ceiling_height"]]
     ch = float(np.median(heights)) if heights else None
     ch_spread = float(np.ptp(heights)) if len(heights) > 1 else None
@@ -151,7 +157,9 @@ def measure_room(folder, max_stills=8):
         "ceiling_height": ch,
         "ceiling_height_spread": ch_spread,
         "ceiling_from_n_stills": len(heights),
-        "extent_x": max(r["extent_x"] for r in results),
-        "extent_z": max(r["extent_z"] for r in results),
+        # the still that saw the most of the room, as one consistent view;
+        # mixing spans from different stills overstates the area badly
+        "extent_x": best["extent_x"],
+        "extent_z": best["extent_z"],
         "per_still": [{k: v for k, v in r.items() if k != "points"} for r in results],
     }

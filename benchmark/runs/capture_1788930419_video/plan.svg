@@ -1,17 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="361" height="217" viewBox="0 0 361 217" font-family="Helvetica, Arial" font-size="11">
+<svg xmlns="http://www.w3.org/2000/svg" width="630" height="403" viewBox="0 0 630 403" font-family="Helvetica, Arial" font-size="11">
 <rect width="100%" height="100%" fill="white"/>
-<polygon points="40.0,104.0 104.0,142.4 104.0,177.6 321.6,168.0 276.8,158.4 241.6,116.8 241.6,168.0 145.6,168.0 153.6,97.6 123.2,40.0 72.0,40.0 72.0,78.4" fill="#f4f1ea" stroke="#333" stroke-width="2"/>
-<text x="158.0" y="121.6" text-anchor="middle" font-weight="bold">room_1</text>
-<text x="158.0" y="135.6" text-anchor="middle" fill="#555">1.8 m² · h 2.56 m</text>
-<text x="72.0" y="119.2" text-anchor="middle" fill="#1a5fb4" font-size="10">0.93</text>
-<text x="212.8" y="168.8" text-anchor="middle" fill="#1a5fb4" font-size="10">2.72</text>
-<text x="259.2" y="133.6" text-anchor="middle" fill="#1a5fb4" font-size="10">0.68</text>
-<text x="241.6" y="138.4" text-anchor="middle" fill="#1a5fb4" font-size="10">0.64</text>
-<text x="193.6" y="164.0" text-anchor="middle" fill="#1a5fb4" font-size="10">1.20</text>
-<text x="149.6" y="128.8" text-anchor="middle" fill="#1a5fb4" font-size="10">0.89</text>
-<text x="138.4" y="64.8" text-anchor="middle" fill="#1a5fb4" font-size="10">0.81</text>
-<text x="97.6" y="36.0" text-anchor="middle" fill="#1a5fb4" font-size="10">0.64</text>
-<circle cx="236.8" cy="168.0" r="5" fill="#2ec27e"/>
-<text x="243.8" y="172.0" font-size="9" fill="#2ec27e">window 1.50</text>
-<text x="40" y="205" fill="#777" font-size="10">capture_1788930419 · tier video · 23.98s</text>
+<polygon points="40.0,206.4 40.0,308.8 65.6,308.8 104.0,238.4 177.6,238.4 177.6,280.0 248.0,280.0 353.6,142.4 321.6,142.4 180.8,40.0 155.2,65.6 97.6,65.6" fill="#f4f1ea" stroke="#333" stroke-width="2"/>
+<text x="163.5" y="193.1" text-anchor="middle" font-weight="bold">room_1</text>
+<text x="163.5" y="207.1" text-anchor="middle" fill="#555">7.4 m² · h 2.04 m</text>
+<text x="40.0" y="253.6" text-anchor="middle" fill="#1a5fb4" font-size="10">1.28</text>
+<text x="84.8" y="269.6" text-anchor="middle" fill="#1a5fb4" font-size="10">1.00</text>
+<text x="140.8" y="234.4" text-anchor="middle" fill="#1a5fb4" font-size="10">0.92</text>
+<text x="212.8" y="276.0" text-anchor="middle" fill="#1a5fb4" font-size="10">0.88</text>
+<text x="300.8" y="207.2" text-anchor="middle" fill="#1a5fb4" font-size="10">2.17</text>
+<text x="251.2" y="87.2" text-anchor="middle" fill="#1a5fb4" font-size="10">2.18</text>
+<text x="126.4" y="61.6" text-anchor="middle" fill="#1a5fb4" font-size="10">0.72</text>
+<text x="68.8" y="132.0" text-anchor="middle" fill="#1a5fb4" font-size="10">1.90</text>
+<circle cx="348.3" cy="149.3" r="5" fill="#2ec27e"/>
+<text x="355.3" y="153.3" font-size="9" fill="#2ec27e">window 0.60</text>
+<circle cx="314.6" cy="137.3" r="5" fill="#c01c28"/>
+<text x="321.6" y="141.3" font-size="9" fill="#c01c28">door 2.35</text>
+<polygon points="264.0,296.0 340.8,296.0 340.8,363.2 366.4,355.2 440.0,355.2 440.0,292.8 488.0,292.8 590.4,225.6 558.4,225.6 529.6,187.2 528.0,97.6 528.0,139.2 446.4,144.0 441.6,110.4 441.6,142.4 353.6,142.4" fill="#f4f1ea" stroke="#333" stroke-width="2"/>
+<text x="443.6" y="229.1" text-anchor="middle" font-weight="bold">room_2</text>
+<text x="443.6" y="243.1" text-anchor="middle" fill="#555">6.4 m² · h 2.04 m</text>
+<text x="302.4" y="292.0" text-anchor="middle" fill="#1a5fb4" font-size="10">0.96</text>
+<text x="340.8" y="325.6" text-anchor="middle" fill="#1a5fb4" font-size="10">0.84</text>
+<text x="403.2" y="351.2" text-anchor="middle" fill="#1a5fb4" font-size="10">0.92</text>
+<text x="440.0" y="320.0" text-anchor="middle" fill="#1a5fb4" font-size="10">0.78</text>
+<text x="539.2" y="255.2" text-anchor="middle" fill="#1a5fb4" font-size="10">1.53</text>
+<text x="528.8" y="138.4" text-anchor="middle" fill="#1a5fb4" font-size="10">1.12</text>
+<text x="487.2" y="137.6" text-anchor="middle" fill="#1a5fb4" font-size="10">1.02</text>
+<text x="397.6" y="138.4" text-anchor="middle" fill="#1a5fb4" font-size="10">1.10</text>
+<text x="308.8" y="215.2" text-anchor="middle" fill="#1a5fb4" font-size="10">2.22</text>
+<circle cx="529.3" cy="167.9" r="5" fill="#2ec27e"/>
+<text x="536.3" y="171.9" font-size="9" fill="#2ec27e">window 0.50</text>
+<circle cx="450.5" cy="143.8" r="5" fill="#2ec27e"/>
+<text x="457.5" y="147.8" font-size="9" fill="#2ec27e">window 0.55</text>
+<circle cx="437.2" cy="142.4" r="5" fill="#2ec27e"/>
+<text x="444.2" y="146.4" font-size="9" fill="#2ec27e">window 0.60</text>
+<circle cx="358.0" cy="142.4" r="5" fill="#2ec27e"/>
+<text x="365.0" y="146.4" font-size="9" fill="#2ec27e">window 0.90</text>
+<circle cx="268.5" cy="288.3" r="5" fill="#2ec27e"/>
+<text x="275.5" y="292.3" font-size="9" fill="#2ec27e">window 1.00</text>
+<text x="40" y="391" fill="#777" font-size="10">capture_1788930419 · tier video · 27.53s</text>
 </svg>

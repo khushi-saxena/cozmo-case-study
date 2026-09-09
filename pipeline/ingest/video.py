@@ -1,5 +1,9 @@
 """Video tier: RGB frames plus ARKit poses, no depth files.
 
+Monocular depth is clipped at 4 m. Past that the model is confidently wrong
+indoors and sprays points metres below the real floor, which is what made
+the first run's cloud span 7 m vertically against LiDAR's 3.4 m.
+
 Depth comes from a monocular model per keyframe. The model's metric scale is
 approximate, but ARKit's poses are not: when the camera moves 1 m toward a
 wall, the depth to that wall should drop by 1 m. Regressing the model's
@@ -61,7 +65,7 @@ def scale_from_motion(frames, min_move=0.15, max_turn_deg=12.0):
     return s, {"applied": True, "scale": s, "iqr": spread, "pairs": int(len(ratios))}
 
 
-def build_cloud(capture, stride=6, voxel=0.03, downscale=4, z_max=6.0):
+def build_cloud(capture, stride=4, voxel=0.03, downscale=4, z_max=4.0):
     capture = Path(capture)
     poses = load_poses(capture)
     frames = keyframes(poses, stride)
@@ -79,7 +83,15 @@ def build_cloud(capture, stride=6, voxel=0.03, downscale=4, z_max=6.0):
         depths.append((p, d))
 
     frames = [p for p, _ in depths]
-    s, scale_info = scale_from_motion(frames)
+    s_est, scale_info = scale_from_motion(frames)
+    # the model is already metric; only override its scale when the motion
+    # estimate is well supported and tight, otherwise it adds more noise than
+    # it removes. either way the estimate is reported as a calibration check
+    tight = (scale_info.get("applied") and scale_info["pairs"] >= 20
+             and scale_info["iqr"] / max(s_est, 1e-6) < 0.15)
+    s = s_est if tight else 1.0
+    scale_info["used"] = bool(tight)
+    scale_info["estimate"] = float(s_est)
 
     A = []
     for p, d in depths:

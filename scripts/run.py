@@ -62,20 +62,37 @@ def build_cloud(capture, poses, stride, voxel):
     return pts, used, rejected, m
 
 
-def horizontal_planes(pts, idx, nm, camera_y):
-    hp = pts[idx][np.abs(nm[:, 1]) > 0.98]
+def horizontal_planes(pts, idx, nm, camera_y, cell=0.15):
+    """Floor and ceiling are the horizontal surfaces covering the most floor
+    area below and above the camera. Picking by histogram peak works on clean
+    LiDAR clouds but on monocular clouds a noise spike below the real floor
+    can out-peak it; area is what a floor actually has more of."""
+    hp = pts[idx][np.abs(nm[:, 1]) > 0.95]
     h = hp[:, 1]
     bins = np.arange(h.min(), h.max() + 0.01, 0.01)
     hist, e = np.histogram(h, bins=bins)
     c = (e[:-1] + e[1:]) / 2
     sm = uniform_filter1d(hist.astype(float), 5)
     loc = [i for i in range(2, len(sm) - 2)
-           if sm[i] == max(sm[i - 2:i + 3]) and sm[i] > 0.10 * sm.max()]
-    below = [c[i] for i in loc if c[i] < camera_y - 0.4]
-    above = [c[i] for i in loc if c[i] > camera_y + 0.2]
+           if sm[i] == max(sm[i - 2:i + 3]) and sm[i] > 0.05 * sm.max()]
+
+    def area_at(y):
+        band = hp[np.abs(hp[:, 1] - y) < 0.06]
+        if len(band) < 50:
+            return 0.0
+        cells = set(map(tuple, np.floor(band[:, [0, 2]] / cell).astype(int)))
+        return len(cells) * cell * cell
+
+    cands = [(c[i], area_at(c[i])) for i in loc]
+    below = [(y, a) for y, a in cands if y < camera_y - 0.4 and a > 0.5]
+    above = [(y, a) for y, a in cands if y > camera_y + 0.2 and a > 0.5]
     if not below or not above:
         return None
-    fl, ce = min(below), max(above)
+    fl = max(below, key=lambda t: t[1])[0]
+    # ceilings are at least 2 m up; monocular depth sees them poorly and a
+    # tabletop or headboard can out-area a thinly observed ceiling
+    high = [(y, a) for y, a in above if y - fl >= 2.0]
+    ce = max(high, key=lambda t: t[1])[0] if high else max(above, key=lambda t: t[0])[0]
     fb = h[np.abs(h - fl) < 0.04]
     cb = h[np.abs(h - ce) < 0.04]
     return {"floor_y": float(fl), "ceiling_y": float(ce),
@@ -107,7 +124,7 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
         pts, used, rejected, manifest = build_cloud(capture, poses, stride, voxel)
     elif tier == "video":
         from pipeline.ingest import video as video_ingest
-        pts, ingest_info = video_ingest.build_cloud(capture, stride=max(stride, 6), voxel=voxel)
+        pts, ingest_info = video_ingest.build_cloud(capture, stride=stride, voxel=voxel)
         used, rejected = ingest_info["frames_used"], 0
     else:
         return run_photo(capture, out_dir, manifest, t0)
@@ -123,7 +140,8 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
     theta = wall_heading(nm)
     R = rotation(theta)
     P = pts[idx]
-    floor = P[(np.abs(nm[:, 1]) > 0.98) & (np.abs(P[:, 1] - fl) < 0.08)]
+    band = 0.08 if tier == "lidar" else 0.12
+    floor = P[(np.abs(nm[:, 1]) > 0.95) & (np.abs(P[:, 1] - fl) < band)]
     grid, origin, cell = footprint(floor[:, [0, 2]] @ R.T, cell=0.08)
     if grid is None:
         raise SystemExit("floor footprint too small")
