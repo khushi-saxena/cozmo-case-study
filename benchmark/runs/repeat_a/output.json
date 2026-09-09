@@ -1,0 +1,441 @@
+{
+  "capture_id": "capture_1788475750",
+  "tier": "lidar",
+  "schema_version": "1",
+  "device": {
+    "model": "iPhone18,1",
+    "system_version": "26.6",
+    "depth_available": true
+  },
+  "runtime": {
+    "seconds_total": 6.61,
+    "seconds_ingest": 2.48,
+    "seconds_geometry": 4.13,
+    "frames_used": 76,
+    "frames_dropped_by_app": 0,
+    "frames_rejected_tracking": 0
+  },
+  "disclosure": {
+    "models": [],
+    "runs_offline": true
+  },
+  "rooms": [
+    {
+      "room_id": "room_1",
+      "polygon": [
+        [
+          -1.6,
+          -3.08
+        ],
+        [
+          -1.16,
+          -2.4
+        ],
+        [
+          -1.16,
+          -1.4
+        ],
+        [
+          -0.3599999999999999,
+          -1.4
+        ],
+        [
+          -0.3599999999999999,
+          -0.7999999999999998
+        ],
+        [
+          -1.44,
+          -0.48
+        ],
+        [
+          -1.44,
+          0.3599999999999999
+        ],
+        [
+          0.48,
+          0.3599999999999999
+        ],
+        [
+          0.48,
+          1.1599999999999997
+        ],
+        [
+          2.4,
+          1.1599999999999997
+        ],
+        [
+          2.4,
+          0.3999999999999999
+        ],
+        [
+          1.8800000000000003,
+          -0.56
+        ],
+        [
+          1.8800000000000003,
+          -3.08
+        ]
+      ],
+      "ceiling_height": {
+        "value": 2.4300000000000024,
+        "unit": "m",
+        "ci_low": 2.388492282311638,
+        "ci_high": 2.471507717688367,
+        "ci_level": 0.9,
+        "method": "floor/ceiling plane separation, interval from plane scatter",
+        "n_points": 24276
+      },
+      "floor_area": {
+        "value": 12.044,
+        "unit": "m2",
+        "ci_low": 10.98048,
+        "ci_high": 13.107520000000001,
+        "ci_level": 0.9,
+        "method": "polygon area, 8% plus raster margin"
+      },
+      "walls": [
+        {
+          "surface_id": "room_1_wall_1",
+          "length": {
+            "value": 0.8099382692526637,
+            "unit": "m",
+            "ci_low": 0.6937395038676104,
+            "ci_high": 0.9261370346377169,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            -1.6,
+            -3.08
+          ],
+          "end": [
+            -1.16,
+            -2.4
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_2",
+          "length": {
+            "value": 1.0,
+            "unit": "m",
+            "ci_low": 0.88,
+            "ci_high": 1.12,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            -1.16,
+            -2.4
+          ],
+          "end": [
+            -1.16,
+            -1.4
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_3",
+          "length": {
+            "value": 0.8,
+            "unit": "m",
+            "ci_low": 0.684,
+            "ci_high": 0.916,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            -1.16,
+            -1.4
+          ],
+          "end": [
+            -0.3599999999999999,
+            -1.4
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_4",
+          "length": {
+            "value": 0.6000000000000001,
+            "unit": "m",
+            "ci_low": 0.4880000000000001,
+            "ci_high": 0.7120000000000001,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            -0.3599999999999999,
+            -1.4
+          ],
+          "end": [
+            -0.3599999999999999,
+            -0.7999999999999998
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_5",
+          "length": {
+            "value": 1.126410227226298,
+            "unit": "m",
+            "ci_low": 1.003882022681772,
+            "ci_high": 1.2489384317708239,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            -0.3599999999999999,
+            -0.7999999999999998
+          ],
+          "end": [
+            -1.44,
+            -0.48
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_6",
+          "length": {
+            "value": 0.8399999999999999,
+            "unit": "m",
+            "ci_low": 0.7231999999999998,
+            "ci_high": 0.9567999999999999,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            -1.44,
+            -0.48
+          ],
+          "end": [
+            -1.44,
+            0.3599999999999999
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_7",
+          "length": {
+            "value": 1.92,
+            "unit": "m",
+            "ci_low": 1.7815999999999999,
+            "ci_high": 2.0584,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            -1.44,
+            0.3599999999999999
+          ],
+          "end": [
+            0.48,
+            0.3599999999999999
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_8",
+          "length": {
+            "value": 0.7999999999999998,
+            "unit": "m",
+            "ci_low": 0.6839999999999998,
+            "ci_high": 0.9159999999999998,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            0.48,
+            0.3599999999999999
+          ],
+          "end": [
+            0.48,
+            1.1599999999999997
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_9",
+          "length": {
+            "value": 1.92,
+            "unit": "m",
+            "ci_low": 1.7815999999999999,
+            "ci_high": 2.0584,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            0.48,
+            1.1599999999999997
+          ],
+          "end": [
+            2.4,
+            1.1599999999999997
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_10",
+          "length": {
+            "value": 0.7599999999999998,
+            "unit": "m",
+            "ci_low": 0.6447999999999998,
+            "ci_high": 0.8751999999999998,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            2.4,
+            1.1599999999999997
+          ],
+          "end": [
+            2.4,
+            0.3999999999999999
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_11",
+          "length": {
+            "value": 1.0917875251164941,
+            "unit": "m",
+            "ci_low": 0.9699517746141643,
+            "ci_high": 1.213623275618824,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            2.4,
+            0.3999999999999999
+          ],
+          "end": [
+            1.8800000000000003,
+            -0.56
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_12",
+          "length": {
+            "value": 2.52,
+            "unit": "m",
+            "ci_low": 2.3696,
+            "ci_high": 2.6704,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            1.8800000000000003,
+            -0.56
+          ],
+          "end": [
+            1.8800000000000003,
+            -3.08
+          ]
+        },
+        {
+          "surface_id": "room_1_wall_13",
+          "length": {
+            "value": 3.4800000000000004,
+            "unit": "m",
+            "ci_low": 3.3104000000000005,
+            "ci_high": 3.6496000000000004,
+            "ci_level": 0.9,
+            "method": "floor-footprint edge, 8cm raster plus 2%/m"
+          },
+          "start": [
+            1.8800000000000003,
+            -3.08
+          ],
+          "end": [
+            -1.6,
+            -3.08
+          ]
+        }
+      ],
+      "openings": [
+        {
+          "opening_id": "room_1_opening_1",
+          "surface_id": "room_1_wall_5",
+          "kind": "window",
+          "width": {
+            "value": 1.05,
+            "unit": "m",
+            "ci_low": 1.0,
+            "ci_high": 1.1,
+            "ci_level": 0.9,
+            "method": "wall occupancy gap, 5cm cells"
+          },
+          "height": {
+            "value": 1.7000000000000002,
+            "unit": "m",
+            "ci_low": 1.6500000000000001,
+            "ci_high": 1.7500000000000002,
+            "ci_level": 0.9,
+            "method": "wall occupancy gap, 5cm cells"
+          },
+          "sill_height": {
+            "value": 0.65,
+            "unit": "m",
+            "ci_low": 0.6,
+            "ci_high": 0.7000000000000001,
+            "ci_level": 0.9,
+            "method": "wall occupancy gap"
+          },
+          "centre_along_wall": -0.6419012246896726,
+          "leads_to": null,
+          "detection_score": 0.8137254901960784,
+          "occluded_fraction": 0.16006884681583478,
+          "beyond_fraction": 1.0
+        },
+        {
+          "opening_id": "room_1_opening_2",
+          "surface_id": "room_1_wall_7",
+          "kind": "window",
+          "width": {
+            "value": 1.8,
+            "unit": "m",
+            "ci_low": 1.75,
+            "ci_high": 1.85,
+            "ci_level": 0.9,
+            "method": "wall occupancy gap, 5cm cells"
+          },
+          "height": {
+            "value": 1.75,
+            "unit": "m",
+            "ci_low": 1.7,
+            "ci_high": 1.8,
+            "ci_level": 0.9,
+            "method": "wall occupancy gap, 5cm cells"
+          },
+          "sill_height": {
+            "value": 0.6000000000000001,
+            "unit": "m",
+            "ci_low": 0.55,
+            "ci_high": 0.6500000000000001,
+            "ci_level": 0.9,
+            "method": "wall occupancy gap"
+          },
+          "centre_along_wall": 0.4452014695213943,
+          "leads_to": null,
+          "detection_score": 0.9277777777777778,
+          "occluded_fraction": 0.23952095808383234,
+          "beyond_fraction": 1.0
+        }
+      ],
+      "damage": [],
+      "concealed_damage_flags": []
+    }
+  ],
+  "property": {
+    "total_floor_area": {
+      "value": 12.044,
+      "unit": "m2",
+      "ci_low": 10.98048,
+      "ci_high": 13.107520000000001,
+      "ci_level": 0.9,
+      "method": "sum of rooms"
+    },
+    "footprint_bbox": [
+      5.28,
+      4.96
+    ],
+    "adjacency": [],
+    "drift_handling": {
+      "method": "linear loop closure on start/end pose",
+      "enabled": true,
+      "loop_closures": 1,
+      "residual_after_closure_m": 0.435122063558267
+    }
+  },
+  "scope_line_items": []
+}

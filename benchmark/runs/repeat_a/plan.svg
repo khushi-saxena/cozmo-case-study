@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="419" viewBox="0 0 400 419" font-family="Helvetica, Arial" font-size="11">
+<rect width="100%" height="100%" fill="white"/>
+<polygon points="40.0,40.0 75.2,94.4 75.2,174.4 139.2,174.4 139.2,222.4 52.8,248.0 52.8,315.2 206.4,315.2 206.4,379.2 360.0,379.2 360.0,318.4 318.4,241.6 318.4,40.0" fill="#f4f1ea" stroke="#333" stroke-width="2"/>
+<text x="180.3" y="226.3" text-anchor="middle" font-weight="bold">room_1</text>
+<text x="180.3" y="240.3" text-anchor="middle" fill="#555">12.0 m² · h 2.43 m</text>
+<text x="57.6" y="63.2" text-anchor="middle" fill="#1a5fb4" font-size="10">0.81</text>
+<text x="75.2" y="130.4" text-anchor="middle" fill="#1a5fb4" font-size="10">1.00</text>
+<text x="107.2" y="170.4" text-anchor="middle" fill="#1a5fb4" font-size="10">0.80</text>
+<text x="139.2" y="194.4" text-anchor="middle" fill="#1a5fb4" font-size="10">0.60</text>
+<text x="96.0" y="231.2" text-anchor="middle" fill="#1a5fb4" font-size="10">1.13</text>
+<text x="52.8" y="277.6" text-anchor="middle" fill="#1a5fb4" font-size="10">0.84</text>
+<text x="129.6" y="311.2" text-anchor="middle" fill="#1a5fb4" font-size="10">1.92</text>
+<text x="206.4" y="343.2" text-anchor="middle" fill="#1a5fb4" font-size="10">0.80</text>
+<text x="283.2" y="375.2" text-anchor="middle" fill="#1a5fb4" font-size="10">1.92</text>
+<text x="360.0" y="344.8" text-anchor="middle" fill="#1a5fb4" font-size="10">0.76</text>
+<text x="339.2" y="276.0" text-anchor="middle" fill="#1a5fb4" font-size="10">1.09</text>
+<text x="318.4" y="136.8" text-anchor="middle" fill="#1a5fb4" font-size="10">2.52</text>
+<text x="179.2" y="36.0" text-anchor="middle" fill="#1a5fb4" font-size="10">3.48</text>
+<circle cx="134.9" cy="223.7" r="5" fill="#2ec27e"/>
+<text x="141.9" y="227.7" font-size="9" fill="#2ec27e">window 1.05</text>
+<circle cx="88.4" cy="315.2" r="5" fill="#2ec27e"/>
+<text x="95.4" y="319.2" font-size="9" fill="#2ec27e">window 1.80</text>
+<text x="40" y="407" fill="#777" font-size="10">capture_1788475750 · tier lidar · 6.61s</text>
+</svg>
