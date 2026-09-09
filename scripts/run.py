@@ -181,7 +181,9 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
             n2 = np.array([-d[1], d[0]]) / L
             n_world = R.T @ n2
             off = float(n_world @ (R.T @ a))
-            for o in openings_for_wall(pts, n_world, off, fl, ce):
+            aw, bw = R.T @ a, R.T @ b        # segment endpoints in world xz
+            for o in openings_for_wall(pts, n_world, off, fl, ce,
+                                       start=aw, end=bw):
                 ops.append({
                     "opening_id": f"{room_id}_opening_{len(ops) + 1}",
                     "surface_id": w["surface_id"],
@@ -192,6 +194,8 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
                     "centre_along_wall": o["centre_along_wall_m"],
                     "leads_to": None,
                     "detection_score": o["fill_ratio"],
+                    "occluded_fraction": o["occluded_fraction"],
+                    "beyond_fraction": o["beyond_fraction"],
                 })
 
         A = area(poly_rect)
