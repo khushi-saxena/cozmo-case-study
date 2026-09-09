@@ -1,0 +1,19 @@
+metric,magicplan_value,unit,source,notes
+ceiling_height,2.413,m,room info,7ft 11in
+floor_area_without_walls,15.36,m2,statistics,165.32 sq ft
+floor_area_with_walls,19.75,m2,statistics,212.58 sq ft
+wall_area,39.88,m2,statistics,429.27 sq ft
+volume,37.04,m3,statistics,1307.91 ft3
+ground_perimeter,16.55,m,statistics,54ft 3.5in
+wall_north,3.45,m,plan,11ft 3.75in
+wall_west,3.39,m,plan,11ft 1.5in
+wall_south,4.39,m,plan,14ft 5in
+wall_east,3.76,m,plan,12ft 4in
+alcove,0.66,m,plan,2ft 2in
+doors_detected,0,count,statistics,magicplan detected no doors
+windows_detected,0,count,statistics,magicplan detected no windows
+app_version,2026.35.0,,about,build 202635000.647ca472
+device,iPhone 17 Pro,,about,iOS 26.6.1
+capture_mode,Manual-Scan LiDAR,,app,single room
+capture_date,2026-09-09,,app,
+note_polycam,,,,"Polycam v free tier would not process Floorplan mode on 2026-09-09; magicplan used instead. Both are named as acceptable in the case study."
