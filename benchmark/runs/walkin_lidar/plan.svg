@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="304" height="260" viewBox="0 0 304 260" font-family="Helvetica, Arial" font-size="11">
+<rect width="100%" height="100%" fill="white"/>
+<polygon points="40.0,182.4 65.6,220.8 132.8,220.8 131.2,57.6 200.0,57.6 241.6,105.6 241.6,220.8 264.0,44.8 43.2,40.0" fill="#f4f1ea" stroke="#333" stroke-width="2"/>
+<text x="151.1" y="127.8" text-anchor="middle" font-weight="bold">room_1</text>
+<text x="151.1" y="141.8" text-anchor="middle" fill="#555">3.2 m² · h 2.50 m</text>
+<text x="99.2" y="216.8" text-anchor="middle" fill="#1a5fb4" font-size="10">0.84</text>
+<text x="132.0" y="135.2" text-anchor="middle" fill="#1a5fb4" font-size="10">2.04</text>
+<text x="165.6" y="53.6" text-anchor="middle" fill="#1a5fb4" font-size="10">0.86</text>
+<text x="220.8" y="77.6" text-anchor="middle" fill="#1a5fb4" font-size="10">0.79</text>
+<text x="241.6" y="159.2" text-anchor="middle" fill="#1a5fb4" font-size="10">1.44</text>
+<text x="252.8" y="128.8" text-anchor="middle" fill="#1a5fb4" font-size="10">2.22</text>
+<text x="153.6" y="38.4" text-anchor="middle" fill="#1a5fb4" font-size="10">2.76</text>
+<text x="41.6" y="107.2" text-anchor="middle" fill="#1a5fb4" font-size="10">1.78</text>
+<circle cx="249.9" cy="155.3" r="5" fill="#c01c28"/>
+<text x="256.9" y="159.3" font-size="9" fill="#c01c28">door 2.20</text>
+<circle cx="43.0" cy="47.1" r="5" fill="#2ec27e"/>
+<text x="50.0" y="51.1" font-size="9" fill="#2ec27e">window 1.75</text>
+<text x="40" y="248" fill="#777" font-size="10">capture_1789080432 · tier lidar · 10.89s</text>
+</svg>

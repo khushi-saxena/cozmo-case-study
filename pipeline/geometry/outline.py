@@ -17,7 +17,7 @@ def rotation(theta):
     return np.array([[c, -s], [s, c]])
 
 
-def footprint(floor_xz, cell=0.08, close_radius=3, min_area_cells=200):
+def footprint(floor_xz, cell=0.08, close_radius=5, min_area_cells=200):
     """Rasterise the floor points, close the gaps furniture leaves, and keep the
     largest blob. Furniture sits inside the room so it only ever punches holes,
     never extends the outline."""
@@ -27,7 +27,11 @@ def footprint(floor_xz, cell=0.08, close_radius=3, min_area_cells=200):
     grid = np.zeros(g.max(0) + 1, dtype=bool)
     grid[g[:, 0], g[:, 1]] = True
 
-    # bridge the gaps where a sofa or bed hid the floor
+    # bridge the gaps where furniture hid the floor. 0.40 m, not 0.24 m: on a
+    # furnished study the floor came back in two disconnected pieces and the
+    # largest-blob rule threw half of it away (2.96 m2 of a 10.2 m2 room).
+    # Found on a walk-in dry run, not on my own rooms, which is the point of
+    # running on a room the pipeline has never seen.
     k = np.ones((close_radius * 2 + 1,) * 2, dtype=bool)
     grid = ndimage.binary_closing(grid, structure=k)
 

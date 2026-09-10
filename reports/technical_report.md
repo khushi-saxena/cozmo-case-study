@@ -265,6 +265,40 @@ It splits across two or three, and each piece fails the size and fill filters.
 The instrumentation was worth more than my hypothesis. I would not have found
 the unbounded-plane bug by reasoning about it.
 
+## 7b. Walk-in dry run
+
+Ran the pipeline cold on a room it had never seen - a furnished study in a
+different building, captured 2026-09-10, all three tiers, no tuning.
+
+| | mine (LiDAR) | magicplan | difference |
+|---|---|---|---|
+| ceiling height | 2.500 m | 2.534 m | 3.4 cm |
+| floor area | 4.24 m2 | 10.21 m2 | -58% |
+
+Ceiling height generalises. 3.4 cm on a room the code has never seen, against
+1.7 cm on my own room, so the method is not fitted to my apartment.
+
+Floor area does not. Two things went wrong and the dry run is the only reason
+I know about either.
+
+First, only 4.8 m2 of floor was ever observed in a 10.2 m2 room. It is a
+study: a desk, a chair and shelving cover most of the floor, and the LiDAR
+cannot see through them. My own bedroom happened to have more open floor.
+
+Second, the observed floor came back as two disconnected pieces and my
+footprint code keeps only the largest blob, which threw away a third of what
+had been seen - 2.96 m2 instead of 4.24 m2. Widening the morphological closing
+from 0.24 m to 0.40 m fixes that half and is now shipped.
+
+The remaining gap is a method limit, not a bug: deriving room area from
+observed floor will always underestimate a furnished room. The right fix is to
+take the outline from the wall planes and use the floor only to confirm it,
+which is the same merged-wall-plane work the openings row needs.
+
+Capture quality was the best of any in the benchmark - 411 frames, tracking
+normal throughout, depth confidence 1.78 of 2, loop closed to 0.26 m - so
+this is not a bad capture. It is the method meeting a room that is not mine.
+
 ## 8. Known failure modes
 
 **Openings, all tiers.** 0 of 3 real openings detected, and 1 phantom
@@ -329,6 +363,11 @@ test.
 space, attached washroom as the second. Same reason as the damage gap. The
 multi-room stitch, adjacency and drift ablation all exercise a real connector,
 but with fewer rooms than the case study specifies.
+
+**Floor area underestimates furnished rooms.** Room outline comes from the
+observed floor, so anything standing on the floor removes area. On the walk-in
+dry run this was -58%. Deriving the outline from wall planes instead would fix
+it and is the same work the openings row needs.
 
 **Furniture against walls still causes trouble.** The one surviving phantom is
 1.60 m wide with a 0.65 m sill, which is furniture. The occlusion test uses
