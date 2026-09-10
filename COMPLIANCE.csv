@@ -39,7 +39,7 @@ C-37,Gate,Photo tier footprint within 8 percent with calibrated intervals,benchm
 C-38,Gate,Photo tier wall lengths within 8 percent,benchmark/harness/gate_report.json,gate report,fail,see C-37
 C-39,Gate,Video tier wall lengths within 3 percent,benchmark/harness/gate_report.json,gate report,fail,-10.6 percent on area
 C-40,Gate,Calibration scored at every tier,reports/technical_report.md,section 5,done,lidar and photo intervals cover magicplan; video does not and the report says why
-C-41,Part 3,Head to head on benchmark rooms at LiDAR tier,benchmark/harness/gate_report.json,comparison table,done,one room; free tier limits
+C-41,Part 3,Head to head on benchmark rooms at LiDAR tier,benchmark/harness/gate_report.json,comparison table,done,two rooms: bedroom and study
 C-42,Part 3,Consumer app named with version and export submitted,benchmark/incumbent/,screenshots + CSV,done,magicplan 2026.35.0; polycam free tier would not process floorplan mode
 C-43,Part 3,Beat or tie on 70 percent or more of shared dimensions,benchmark/harness/gate_report.json,comparison table,pass,2 of 2 shared dimensions within 1.7 cm and 0.8 percent
 C-44,Part 4,Fix declaration worst gate with failing number,reports/fix_declaration.md,one page,done,committed before the fix
@@ -60,7 +60,7 @@ C-58,Deliverable,Benchmark report includes timing,benchmark/harness/gate_report.
 C-59,Deliverable,Fix loop bundle,benchmark/runs/fix_loop/,before and after,done,
 C-60,Deliverable,Technical report max 6 pages,reports/technical_report.md,report,done,
 C-61,Deliverable,Raw benchmark data sensor logs ground truth app exports,benchmark/,raw files + CSVs + screenshots,done,
-C-62,Walk-in,All three tiers ready to run cold,scripts/run.py,one command per tier,partial,all three run; never tested on a room the pipeline has not seen
+C-62,Walk-in,All three tiers ready to run cold,benchmark/runs/walkin_*,dry run on an unseen room,done,cold run 2026-09-10 on a study in another building; lidar ceiling within 3.4 cm of magicplan; floor area -69 percent; see report section 7b
 C-63,Constraint,Handheld consumer capture only,ios/CozmoCapture/,capture app,done,iPhone 17 Pro handheld
 C-64,Constraint,Pretrained models datasets and APIs disclosed,reports/technical_report.md,section 9,done,one model
 C-65,Constraint,Runs without calling our infrastructure,scripts/run.py,offline run,done,weights cached by script beforehand

@@ -270,13 +270,22 @@ the unbounded-plane bug by reasoning about it.
 Ran the pipeline cold on a room it had never seen - a furnished study in a
 different building, captured 2026-09-10, all three tiers, no tuning.
 
-| | mine (LiDAR) | magicplan | difference |
-|---|---|---|---|
-| ceiling height | 2.500 m | 2.534 m | 3.4 cm |
-| floor area | 4.24 m2 | 10.21 m2 | -58% |
+| tier | ceiling height | vs magicplan 2.534 m | floor area | vs magicplan 10.21 m2 |
+|---|---|---|---|---|
+| LiDAR | 2.500 m | -3.4 cm | 3.19 m2 | -68.8% |
+| photo | 2.926 m | +39.2 cm | 4.63 m2 | -54.6% |
+| video | 2.030 m | -50.4 cm | 4.11 m2 | -59.7% |
 
-Ceiling height generalises. 3.4 cm on a room the code has never seen, against
-1.7 cm on my own room, so the method is not fitted to my apartment.
+Ceiling height generalises at the LiDAR tier. 3.4 cm on a room the code has
+never seen, against 1.7 cm on my own bedroom, so the method is not fitted to
+my apartment.
+
+It does not generalise at the other two tiers. Photo is 39 cm high and video
+50 cm low on the unseen room. Both are worse than on my own room, and the
+photo tier's interval (+/- 20 cm) does not cover the reference either. Running
+the harness against each room's own reference rather than against my bedroom's
+LiDAR is what exposed this: comparing a tier to my own LiDAR flatters it,
+because both share the same errors.
 
 Floor area does not. Two things went wrong and the dry run is the only reason
 I know about either.
@@ -286,9 +295,14 @@ study: a desk, a chair and shelving cover most of the floor, and the LiDAR
 cannot see through them. My own bedroom happened to have more open floor.
 
 Second, the observed floor came back as two disconnected pieces and my
-footprint code keeps only the largest blob, which threw away a third of what
-had been seen - 2.96 m2 instead of 4.24 m2. Widening the morphological closing
-from 0.24 m to 0.40 m fixes that half and is now shipped.
+footprint code keeps only the largest blob, which threw away a fifth of what
+had been seen. Widening the morphological closing from 0.24 m to 0.40 m fixes
+that half and is now shipped: 2.71 m2 to 3.19 m2 on this capture.
+
+Openings on this room: 2 detected, both wrong. One classified as a door
+reaching the floor - the right shape for the first time - but 2.20 m wide
+against a real 1.04 m. The other is a phantom window in a room magicplan says
+has none. Consistent with the fix declaration.
 
 The remaining gap is a method limit, not a bug: deriving room area from
 observed floor will always underestimate a furnished room. The right fix is to
