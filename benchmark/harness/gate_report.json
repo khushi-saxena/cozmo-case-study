@@ -132,21 +132,10 @@
     {
       "run": "capture_1788930419_video",
       "tier": "video",
-      "detected": 7,
+      "detected": 0,
       "real_in_room": 3,
-      "by_kind": {
-        "window": 6,
-        "door": 1
-      },
-      "widths_m": [
-        0.6,
-        2.35,
-        0.5,
-        0.55,
-        0.6,
-        0.9,
-        1.0
-      ]
+      "by_kind": {},
+      "widths_m": []
     },
     {
       "run": "repeat_a",
@@ -182,7 +171,7 @@
       "area_vs_lidar_pct": 0.0,
       "ceiling_m": 2.43,
       "ceiling_vs_lidar_pct": 0.0,
-      "runtime_s": 7.48,
+      "runtime_s": 17.86,
       "rooms": 2
     },
     {
@@ -192,7 +181,7 @@
       "area_vs_lidar_pct": -29.0,
       "ceiling_m": 2.247,
       "ceiling_vs_lidar_pct": -7.5,
-      "runtime_s": 20.23,
+      "runtime_s": 20.32,
       "rooms": 1
     },
     {
@@ -202,7 +191,7 @@
       "area_vs_lidar_pct": -10.6,
       "ceiling_m": 2.04,
       "ceiling_vs_lidar_pct": -16.0,
-      "runtime_s": 27.53,
+      "runtime_s": 29.09,
       "rooms": 2
     },
     {

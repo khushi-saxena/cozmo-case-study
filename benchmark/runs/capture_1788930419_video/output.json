@@ -8,9 +8,9 @@
     "depth_available": true
   },
   "runtime": {
-    "seconds_total": 27.53,
-    "seconds_ingest": 22.53,
-    "seconds_geometry": 5.01,
+    "seconds_total": 29.09,
+    "seconds_ingest": 23.76,
+    "seconds_geometry": 5.33,
     "frames_used": 102,
     "frames_dropped_by_app": 0,
     "frames_rejected_tracking": 0
@@ -329,72 +329,7 @@
           ]
         }
       ],
-      "openings": [
-        {
-          "opening_id": "room_1_opening_1",
-          "surface_id": "room_1_wall_7",
-          "kind": "window",
-          "width": {
-            "value": 0.6000000000000001,
-            "unit": "m",
-            "ci_low": 0.55,
-            "ci_high": 0.6500000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "height": {
-            "value": 0.7000000000000001,
-            "unit": "m",
-            "ci_low": 0.65,
-            "ci_high": 0.7500000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "sill_height": {
-            "value": 0.65,
-            "unit": "m",
-            "ci_low": 0.6,
-            "ci_high": 0.7000000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap"
-          },
-          "centre_along_wall": 3.492136362211988,
-          "leads_to": null,
-          "detection_score": 0.7619047619047619
-        },
-        {
-          "opening_id": "room_1_opening_2",
-          "surface_id": "room_1_wall_9",
-          "kind": "door",
-          "width": {
-            "value": 2.35,
-            "unit": "m",
-            "ci_low": 2.3000000000000003,
-            "ci_high": 2.4,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "height": {
-            "value": 1.85,
-            "unit": "m",
-            "ci_low": 1.8,
-            "ci_high": 1.9000000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "sill_height": {
-            "value": 0.09999999999999998,
-            "unit": "m",
-            "ci_low": 0.049999999999999975,
-            "ci_high": 0.14999999999999997,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap"
-          },
-          "centre_along_wall": -3.2103948270605622,
-          "leads_to": null,
-          "detection_score": 0.7648073605520413
-        }
-      ],
+      "openings": [],
       "damage": [],
       "concealed_damage_flags": []
     },
@@ -789,168 +724,7 @@
           ]
         }
       ],
-      "openings": [
-        {
-          "opening_id": "room_2_opening_1",
-          "surface_id": "room_2_wall_10",
-          "kind": "window",
-          "width": {
-            "value": 0.5,
-            "unit": "m",
-            "ci_low": 0.45,
-            "ci_high": 0.55,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "height": {
-            "value": 0.65,
-            "unit": "m",
-            "ci_low": 0.6,
-            "ci_high": 0.7000000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "sill_height": {
-            "value": 0.5,
-            "unit": "m",
-            "ci_low": 0.45,
-            "ci_high": 0.55,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap"
-          },
-          "centre_along_wall": 0.24179188743330204,
-          "leads_to": null,
-          "detection_score": 0.7
-        },
-        {
-          "opening_id": "room_2_opening_2",
-          "surface_id": "room_2_wall_12",
-          "kind": "window",
-          "width": {
-            "value": 0.55,
-            "unit": "m",
-            "ci_low": 0.5,
-            "ci_high": 0.6000000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "height": {
-            "value": 1.1,
-            "unit": "m",
-            "ci_low": 1.05,
-            "ci_high": 1.1500000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "sill_height": {
-            "value": 0.8500000000000001,
-            "unit": "m",
-            "ci_low": 0.8,
-            "ci_high": 0.9000000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap"
-          },
-          "centre_along_wall": 2.962178322172476,
-          "leads_to": null,
-          "detection_score": 0.8057851239669421
-        },
-        {
-          "opening_id": "room_2_opening_3",
-          "surface_id": "room_2_wall_15",
-          "kind": "window",
-          "width": {
-            "value": 0.6000000000000001,
-            "unit": "m",
-            "ci_low": 0.55,
-            "ci_high": 0.6500000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "height": {
-            "value": 1.1,
-            "unit": "m",
-            "ci_low": 1.05,
-            "ci_high": 1.1500000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "sill_height": {
-            "value": 0.75,
-            "unit": "m",
-            "ci_low": 0.7,
-            "ci_high": 0.8,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap"
-          },
-          "centre_along_wall": -0.2569258403806485,
-          "leads_to": null,
-          "detection_score": 0.7878787878787878
-        },
-        {
-          "opening_id": "room_2_opening_4",
-          "surface_id": "room_2_wall_15",
-          "kind": "window",
-          "width": {
-            "value": 0.9,
-            "unit": "m",
-            "ci_low": 0.85,
-            "ci_high": 0.9500000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "height": {
-            "value": 1.1,
-            "unit": "m",
-            "ci_low": 1.05,
-            "ci_high": 1.1500000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "sill_height": {
-            "value": 0.8500000000000001,
-            "unit": "m",
-            "ci_low": 0.8,
-            "ci_high": 0.9000000000000001,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap"
-          },
-          "centre_along_wall": 3.0430741596193513,
-          "leads_to": null,
-          "detection_score": 0.8964646464646465
-        },
-        {
-          "opening_id": "room_2_opening_5",
-          "surface_id": "room_2_wall_16",
-          "kind": "window",
-          "width": {
-            "value": 1.0,
-            "unit": "m",
-            "ci_low": 0.95,
-            "ci_high": 1.05,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "height": {
-            "value": 1.4500000000000002,
-            "unit": "m",
-            "ci_low": 1.4000000000000001,
-            "ci_high": 1.5000000000000002,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap, 5cm cells"
-          },
-          "sill_height": {
-            "value": 0.5,
-            "unit": "m",
-            "ci_low": 0.45,
-            "ci_high": 0.55,
-            "ci_level": 0.9,
-            "method": "wall occupancy gap"
-          },
-          "centre_along_wall": 2.9370901016589537,
-          "leads_to": null,
-          "detection_score": 0.7327586206896551
-        }
-      ],
+      "openings": [],
       "damage": [],
       "concealed_damage_flags": []
     }

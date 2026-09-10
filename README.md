@@ -76,14 +76,17 @@ Capture `capture_1788930419`: bedroom, walk-in closet, attached washroom.
 
 | tier | rooms | floor area | ceiling height | openings | runtime |
 |---|---|---|---|---|---|
-| LiDAR | 2 | 15.48 m2 | 2.430 m | 1 | 7.5 s |
-| video | 2 | 13.84 m2 | 2.040 m | 7 | 27.5 s |
-| photo | 1 | 10.99 m2 | 2.247 m | 0 | 20.2 s |
+| LiDAR | 2 | 15.48 m2 | 2.430 m | 1 | 17.9 s |
+| video | 2 | 13.84 m2 | 2.040 m | 0 | 29.1 s |
+| photo | 1 | 10.99 m2 | 2.247 m | 0 | 20.3 s |
 
 magicplan 2026.35.0 on the same room: ceiling 2.413 m, floor area 15.36 m2.
 So 1.7 cm and 0.8% apart on the two shared dimensions.
 
 Repeatability, two separate captures of the same room: 2.430 m both times.
+
+A clean clone reproduces all three tiers to the same figures: fresh checkout,
+fresh venv, weights fetched by script, 18.6 s wall clock to a LiDAR plan.
 
 Openings are the weak row and the subject of the fix loop. Details and every
 other known failure mode are in `reports/technical_report.md` section 8.

@@ -11,10 +11,6 @@
 <text x="251.2" y="87.2" text-anchor="middle" fill="#1a5fb4" font-size="10">2.18</text>
 <text x="126.4" y="61.6" text-anchor="middle" fill="#1a5fb4" font-size="10">0.72</text>
 <text x="68.8" y="132.0" text-anchor="middle" fill="#1a5fb4" font-size="10">1.90</text>
-<circle cx="348.3" cy="149.3" r="5" fill="#2ec27e"/>
-<text x="355.3" y="153.3" font-size="9" fill="#2ec27e">window 0.60</text>
-<circle cx="314.6" cy="137.3" r="5" fill="#c01c28"/>
-<text x="321.6" y="141.3" font-size="9" fill="#c01c28">door 2.35</text>
 <polygon points="264.0,296.0 340.8,296.0 340.8,363.2 366.4,355.2 440.0,355.2 440.0,292.8 488.0,292.8 590.4,225.6 558.4,225.6 529.6,187.2 528.0,97.6 528.0,139.2 446.4,144.0 441.6,110.4 441.6,142.4 353.6,142.4" fill="#f4f1ea" stroke="#333" stroke-width="2"/>
 <text x="443.6" y="229.1" text-anchor="middle" font-weight="bold">room_2</text>
 <text x="443.6" y="243.1" text-anchor="middle" fill="#555">6.4 m² · h 2.04 m</text>
@@ -27,15 +23,5 @@
 <text x="487.2" y="137.6" text-anchor="middle" fill="#1a5fb4" font-size="10">1.02</text>
 <text x="397.6" y="138.4" text-anchor="middle" fill="#1a5fb4" font-size="10">1.10</text>
 <text x="308.8" y="215.2" text-anchor="middle" fill="#1a5fb4" font-size="10">2.22</text>
-<circle cx="529.3" cy="167.9" r="5" fill="#2ec27e"/>
-<text x="536.3" y="171.9" font-size="9" fill="#2ec27e">window 0.50</text>
-<circle cx="450.5" cy="143.8" r="5" fill="#2ec27e"/>
-<text x="457.5" y="147.8" font-size="9" fill="#2ec27e">window 0.55</text>
-<circle cx="437.2" cy="142.4" r="5" fill="#2ec27e"/>
-<text x="444.2" y="146.4" font-size="9" fill="#2ec27e">window 0.60</text>
-<circle cx="358.0" cy="142.4" r="5" fill="#2ec27e"/>
-<text x="365.0" y="146.4" font-size="9" fill="#2ec27e">window 0.90</text>
-<circle cx="268.5" cy="288.3" r="5" fill="#2ec27e"/>
-<text x="275.5" y="292.3" font-size="9" fill="#2ec27e">window 1.00</text>
-<text x="40" y="391" fill="#777" font-size="10">capture_1788930419 · tier video · 27.53s</text>
+<text x="40" y="391" fill="#777" font-size="10">capture_1788930419 · tier video · 29.09s</text>
 </svg>

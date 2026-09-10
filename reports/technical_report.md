@@ -32,8 +32,9 @@ One command per capture:
 
     python3 scripts/run.py --capture <dir> --tier <lidar|video|photo>
 
-Runtime on the target laptop: LiDAR 7.5 s without damage detection, 33 s with
-it; photo 20.2 s; video 27.5 s. Nothing
+Runtime on the target laptop, measured on the multi-space capture: LiDAR
+17.9 s, photo 20.3 s, video 29.1 s. LiDAR was 7.5 s before damage detection
+was added; painting each wall from the RGB frames is what costs the rest. Nothing
 calls out to a network at inference time. Model weights are fetched once by
 script into the local cache.
 
@@ -82,9 +83,9 @@ against the LiDAR tier as reference:
 
 | tier | floor area | ceiling height | rooms found | runtime |
 |---|---|---|---|---|
-| LiDAR | 15.48 m2 | 2.430 m | 2 | 7.5 s |
-| Video | 13.84 m2 (-10.6%) | 2.040 m (-16.0%) | 2 | 27.5 s |
-| Photo | 10.99 m2 (-29.0%) | 2.247 m (-7.5%) | 1 | 20.2 s |
+| LiDAR | 15.48 m2 | 2.430 m | 2 | 17.9 s |
+| Video | 13.84 m2 (-10.6%) | 2.040 m (-16.0%) | 2 | 29.1 s |
+| Photo | 10.99 m2 (-29.0%) | 2.247 m (-7.5%) | 1 | 20.3 s |
 
 Photo-tier area is reported as a lower bound with an interval skewed upward,
 because a still only ever sees part of a room.
@@ -234,8 +235,13 @@ right; all five labelled "window". 0% against an 85% gate.
 **What I predicted:** occlusion was the root cause - furniture in front of a
 wall reading as a hole. Predicted phantoms 5 -> 1 and real detections 0 -> 2.
 
-**What happened:** phantoms went 5 -> 1, as predicted. Real detections stayed
-at 0. So half the prediction landed and half did not.
+**What happened:** phantoms went 5 -> 1 at the LiDAR tier, as predicted. Real
+detections stayed at 0. So half the prediction landed and half did not.
+
+The fix helped more than the declaration claimed, because it applies to every
+tier rather than just the one I was measuring. Video went from 7 phantom
+openings to 0 on the same capture. Across all three tiers the phantom count
+went 12 -> 1.
 
 **What the fix loop actually found**, and this is the part worth reading: when
 I instrumented the detector to print occlusion and free-space fractions per
@@ -261,7 +267,9 @@ the unbounded-plane bug by reasoning about it.
 
 ## 8. Known failure modes
 
-**Openings, all tiers.** 0 of 3 real openings detected. The wall planes fed to
+**Openings, all tiers.** 0 of 3 real openings detected, and 1 phantom
+remaining at the LiDAR tier (down from 12 phantoms across tiers before the
+fix). The wall planes fed to
 the detector are polygon-edge fragments, not merged wall planes. Fixing this
 properly needs RANSAC wall extraction that does not re-detect the same wall -
 my attempt is still in `pipeline/geometry/walls.py` and found each wall three

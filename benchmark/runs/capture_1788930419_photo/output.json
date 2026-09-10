@@ -8,7 +8,7 @@
     "depth_available": false
   },
   "runtime": {
-    "seconds_total": 20.23,
+    "seconds_total": 20.32,
     "frames_used": 7,
     "frames_dropped_by_app": 0,
     "frames_rejected_tracking": 0

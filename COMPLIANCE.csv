@@ -11,11 +11,11 @@ C-09,Part 1,Device matrix: what accuracy each tier honestly delivers,protocol/de
 C-10,Part 2,Dimensioned per-room plan with walls,pipeline/geometry/outline.py,JSON rooms[].walls,done,
 C-11,Part 2,Ceiling height per room,pipeline/geometry/planes.py + scripts/run.py,JSON rooms[].ceiling_height,done,2.430 m LiDAR
 C-12,Part 2,Floor area per room,pipeline/geometry/outline.py,JSON rooms[].floor_area,done,
-C-13,Part 2,Openings detected and dimensioned,pipeline/geometry/openings.py,JSON rooms[].openings,partial,runs but 0 of 3 real openings found; see report section 8
+C-13,Part 2,Openings detected and dimensioned,pipeline/geometry/openings.py,JSON rooms[].openings,partial,runs but 0 of 3 real openings found; 1 phantom at lidar down from 12 across tiers; see report section 8
 C-14,Part 2,Stitched multi-room plan with correct adjacency,pipeline/geometry/rooms.py,JSON property.adjacency,done,bedroom+closet and washroom adjacent via doorway
-C-15,Part 2,Per-surface damage regions with class and metric extent,pipeline/damage/,JSON rooms[].damage,partial,path runs and reports none on an undamaged room; never validated against staged damage
-C-16,Part 2,Concealed damage flags with the rule that fired,pipeline/damage/,JSON concealed_damage_flags with rule ids,partial,same as C-15
-C-17,Part 2,Scope line items keyed to surfaces,scripts/run.py,JSON scope_line_items,partial,same as C-15
+C-15,Part 2,Per-surface damage regions with class and metric extent,pipeline/damage/detect.py,JSON rooms[].damage,partial,per-surface colour deviation; reports none on an undamaged room; never validated against staged damage
+C-16,Part 2,Concealed damage flags with the rule that fired,pipeline/damage/rules.py,JSON concealed_damage_flags with rule ids,done,four deterministic rules CD-001 to CD-004; self-tested
+C-17,Part 2,Scope line items keyed to surfaces,pipeline/damage/scope.py,JSON scope_line_items,done,deterministic quantities with waste factors; self-tested
 C-18,Part 2,Confidence interval on every measurement,scripts/run.py,every measurement object,done,value ci_low ci_high ci_level method
 C-19,Part 2,One command per capture,scripts/run.py,run.py --capture --tier,done,
 C-20,Part 2,JSON conforms to published schema,pipeline/schema/output_v1.json,schema + jsonschema validation,done,validated on lidar and photo outputs
@@ -52,7 +52,7 @@ C-50,Part 5,Commit history shows incremental work,.git,history,done,~25 commits 
 C-51,Deliverable,Compliance matrix,COMPLIANCE.csv,this file,done,
 C-52,Deliverable,Capture route artifact plus device matrix,protocol/,protocol page + matrix,done,
 C-53,Deliverable,README to running in under 15 minutes on a clean machine,README.md,timed instructions,done,
-C-54,Deliverable,Reproduction bundle regenerating every reported number,scripts/ + benchmark/,run.py plus fetch scripts,done,every number in the report comes from a committed run output
+C-54,Deliverable,Reproduction bundle regenerating every reported number,scripts/ + benchmark/,run.py plus fetch scripts,done,clean clone reproduces all three tiers to identical figures; 18.6 s to a lidar plan
 C-55,Deliverable,Benchmark report gates at all three tiers,benchmark/harness/gate_report.json,generated report,done,
 C-56,Deliverable,Benchmark report includes repeatability table,benchmark/harness/gate_report.json,repeatability section,done,
 C-57,Deliverable,Benchmark report includes head to head table,benchmark/harness/gate_report.json,head_to_head section,done,
