@@ -51,6 +51,26 @@ def load_runs(runs_dir):
     return out
 
 
+# every run belongs to a capture, and each capture has its own reference.
+# scoring a walk-in run against the bedroom's ground truth is meaningless and
+# was producing -79% area errors that mean nothing.
+CAPTURES = {
+    "capture_1788930419_lidar": "bedroom", "capture_1788930419_video": "bedroom",
+    "capture_1788930419_photo": "bedroom", "repeat_a": "bedroom",
+    "repeat_b": "bedroom",
+    "walkin_lidar": "study", "walkin_video": "study", "walkin_photo": "study",
+}
+
+# magicplan 2026.35.0 measurements, used as the external reference where my own
+# tape is missing or too coarse. Screenshots in benchmark/incumbent/.
+REFERENCE = {
+    "bedroom": {"ceiling_cm": 241.3, "area_m2": 15.36, "openings": 3,
+                "source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"},
+    "study":   {"ceiling_cm": 253.4, "area_m2": 10.21, "openings": 1,
+                "source": "magicplan; unseen room, no tape available"},
+}
+
+
 def ceiling_rows(runs, truth):
     gt = truth.get(("room_01", "", "ceiling_height"))
     rows = []
@@ -59,15 +79,18 @@ def ceiling_rows(runs, truth):
             v = r["ceiling_height"]["value"] * 100
             lo = r["ceiling_height"]["ci_low"] * 100
             hi = r["ceiling_height"]["ci_high"] * 100
-            row = {"run": name, "tier": o["tier"], "room": r["room_id"],
-                   "value_cm": round(v, 1),
+            cap = CAPTURES.get(name)
+            ref = REFERENCE.get(cap)
+            row = {"run": name, "capture": cap, "tier": o["tier"],
+                   "room": r["room_id"], "value_cm": round(v, 1),
                    "ci_cm": f"[{lo:.1f}, {hi:.1f}]"}
-            if gt:
-                err = v - gt["mean"]
-                row["truth_cm"] = round(gt["mean"], 1)
+            if ref:
+                err = v - ref["ceiling_cm"]
+                row["reference_cm"] = ref["ceiling_cm"]
                 row["error_cm"] = round(err, 1)
                 row["gate_1_5cm"] = "pass" if abs(err) <= GATES["ceiling_height_cm"] else "FAIL"
-                row["truth_covered_by_ci"] = "yes" if lo <= gt["mean"] <= hi else "no"
+                row["reference_in_ci"] = "yes" if lo <= ref["ceiling_cm"] <= hi else "no"
+                row["reference_source"] = ref["source"]
             rows.append(row)
     return rows
 
@@ -83,14 +106,16 @@ def repeatability(runs, a, b):
             "gate_1cm": "pass" if abs(ca - cb) <= GATES["ceiling_spread_cm"] else "FAIL"}
 
 
-def openings(runs, truth_openings):
+def openings(runs, _unused=None):
     rows = []
     for name, o in runs.items():
+        cap = CAPTURES.get(name)
+        truth_openings = REFERENCE.get(cap, {}).get("openings")
         found = [x for r in o["rooms"] for x in r["openings"]]
         kinds = {}
         for x in found:
             kinds[x["kind"]] = kinds.get(x["kind"], 0) + 1
-        rows.append({"run": name, "tier": o["tier"],
+        rows.append({"run": name, "capture": cap, "tier": o["tier"],
                      "detected": len(found),
                      "real_in_room": truth_openings,
                      "by_kind": kinds,
@@ -98,23 +123,23 @@ def openings(runs, truth_openings):
     return rows
 
 
-def tier_comparison(runs, reference):
-    if reference not in runs:
-        return []
-    ref = runs[reference]
-    ref_area = ref["property"]["total_floor_area"]["value"]
-    ref_ceil = ref["rooms"][0]["ceiling_height"]["value"]
+def tier_comparison(runs, _unused=None):
+    """Each run against its own capture's reference, not against another
+    room's."""
     rows = []
     for name, o in runs.items():
+        cap = CAPTURES.get(name)
+        ref = REFERENCE.get(cap)
         a = o["property"]["total_floor_area"]["value"]
         c = o["rooms"][0]["ceiling_height"]["value"]
-        rows.append({"run": name, "tier": o["tier"],
-                     "area_m2": round(a, 2),
-                     "area_vs_lidar_pct": round(100 * (a - ref_area) / ref_area, 1),
-                     "ceiling_m": round(c, 3),
-                     "ceiling_vs_lidar_pct": round(100 * (c - ref_ceil) / ref_ceil, 1),
-                     "runtime_s": o["runtime"]["seconds_total"],
-                     "rooms": len(o["rooms"])})
+        row = {"run": name, "capture": cap, "tier": o["tier"],
+               "area_m2": round(a, 2), "ceiling_m": round(c, 3),
+               "runtime_s": o["runtime"]["seconds_total"],
+               "rooms": len(o["rooms"])}
+        if ref:
+            row["area_vs_ref_pct"] = round(100 * (a - ref["area_m2"]) / ref["area_m2"], 1)
+            row["ceiling_vs_ref_cm"] = round(100 * c - ref["ceiling_cm"], 1)
+        rows.append(row)
     return rows
 
 
@@ -154,8 +179,9 @@ def main():
         "gates": GATES,
         "ceiling_height": ceiling_rows(runs, truth),
         "repeatability": repeatability(runs, "repeat_a", "repeat_b"),
-        "openings": openings(runs, truth_openings=3),
-        "tiers": tier_comparison(runs, "capture_1788930419_lidar"),
+        "reference": REFERENCE,
+        "openings": openings(runs),
+        "tiers": tier_comparison(runs),
         "head_to_head": head_to_head(
             runs, ROOT / "benchmark/incumbent/magicplan_room_01.csv",
             "capture_1788930419_lidar"),
@@ -164,11 +190,12 @@ def main():
     out = ROOT / "benchmark/harness/gate_report.json"
     out.write_text(json.dumps(report, indent=2))
 
-    print("=== ceiling height")
+    print("=== ceiling height, each against its own room's reference")
     for r in report["ceiling_height"]:
-        print("  %-38s %-6s %7.1f cm  ci %s  %s" %
-              (r["run"], r["tier"], r["value_cm"], r["ci_cm"],
-               r.get("gate_1_5cm", "no truth")))
+        print("  %-26s %-8s %-6s %6.1f cm  ref %6.1f  err %+6.1f  ci %s  %s" %
+              (r["run"], r.get("capture", "?"), r["tier"], r["value_cm"],
+               r.get("reference_cm", 0), r.get("error_cm", 0), r["ci_cm"],
+               r.get("gate_1_5cm", "no ref")))
 
     if report["repeatability"]:
         rp = report["repeatability"]
@@ -176,16 +203,18 @@ def main():
         print("  %.1f vs %.1f cm  spread %.2f cm  gate 1cm: %s" %
               (rp["ceiling_a_cm"], rp["ceiling_b_cm"], rp["spread_cm"], rp["gate_1cm"]))
 
-    print("\n=== openings (3 real in room_01)")
+    print("\n=== openings")
     for r in report["openings"]:
-        print("  %-38s %-6s detected %d  %s" %
-              (r["run"], r["tier"], r["detected"], r["by_kind"]))
+        print("  %-26s %-8s %-6s detected %d of %s real  %s" %
+              (r["run"], r.get("capture", "?"), r["tier"], r["detected"],
+               r.get("real_in_room", "?"), r["by_kind"]))
 
-    print("\n=== tiers vs lidar")
+    print("\n=== tiers, each against its own room's reference")
     for r in report["tiers"]:
-        print("  %-38s %-6s area %6.2f (%+6.1f%%)  ceiling %.3f (%+5.1f%%)  %5.1fs" %
-              (r["run"], r["tier"], r["area_m2"], r["area_vs_lidar_pct"],
-               r["ceiling_m"], r["ceiling_vs_lidar_pct"], r["runtime_s"]))
+        print("  %-26s %-8s %-6s area %6.2f (%+6.1f%%)  ceiling %.3f (%+6.1f cm)  %5.1fs" %
+              (r["run"], r.get("capture", "?"), r["tier"], r["area_m2"],
+               r.get("area_vs_ref_pct", 0), r["ceiling_m"],
+               r.get("ceiling_vs_ref_cm", 0), r["runtime_s"]))
 
     print("\n=== head to head vs magicplan 2026.35.0")
     for r in report["head_to_head"]:

@@ -13,124 +13,146 @@
   "ceiling_height": [
     {
       "run": "capture_1788930419_lidar",
+      "capture": "bedroom",
       "tier": "lidar",
       "room": "room_1",
       "value_cm": 243.0,
       "ci_cm": "[238.7, 247.3]",
-      "truth_cm": 236.0,
-      "error_cm": 7.0,
+      "reference_cm": 241.3,
+      "error_cm": 1.7,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "yes",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "capture_1788930419_lidar",
+      "capture": "bedroom",
       "tier": "lidar",
       "room": "room_2",
       "value_cm": 243.0,
       "ci_cm": "[238.7, 247.3]",
-      "truth_cm": 236.0,
-      "error_cm": 7.0,
+      "reference_cm": 241.3,
+      "error_cm": 1.7,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "yes",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "capture_1788930419_photo",
+      "capture": "bedroom",
       "tier": "photo",
       "room": "room_1",
       "value_cm": 224.7,
       "ci_cm": "[204.7, 244.7]",
-      "truth_cm": 236.0,
-      "error_cm": -11.3,
+      "reference_cm": 241.3,
+      "error_cm": -16.6,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "yes"
+      "reference_in_ci": "yes",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "capture_1788930419_video",
+      "capture": "bedroom",
       "tier": "video",
       "room": "room_1",
       "value_cm": 204.0,
       "ci_cm": "[198.7, 209.3]",
-      "truth_cm": 236.0,
-      "error_cm": -32.0,
+      "reference_cm": 241.3,
+      "error_cm": -37.3,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "no",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "capture_1788930419_video",
+      "capture": "bedroom",
       "tier": "video",
       "room": "room_2",
       "value_cm": 204.0,
       "ci_cm": "[198.7, 209.3]",
-      "truth_cm": 236.0,
-      "error_cm": -32.0,
+      "reference_cm": 241.3,
+      "error_cm": -37.3,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "no",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "repeat_a",
+      "capture": "bedroom",
       "tier": "lidar",
       "room": "room_1",
       "value_cm": 243.0,
       "ci_cm": "[238.8, 247.2]",
-      "truth_cm": 236.0,
-      "error_cm": 7.0,
+      "reference_cm": 241.3,
+      "error_cm": 1.7,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "yes",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "repeat_b",
+      "capture": "bedroom",
       "tier": "lidar",
       "room": "room_1",
       "value_cm": 243.0,
       "ci_cm": "[238.7, 247.3]",
-      "truth_cm": 236.0,
-      "error_cm": 7.0,
+      "reference_cm": 241.3,
+      "error_cm": 1.7,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "yes",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "repeat_b",
+      "capture": "bedroom",
       "tier": "lidar",
       "room": "room_2",
       "value_cm": 243.0,
       "ci_cm": "[238.7, 247.3]",
-      "truth_cm": 236.0,
-      "error_cm": 7.0,
+      "reference_cm": 241.3,
+      "error_cm": 1.7,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "yes",
+      "reference_source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
     },
     {
       "run": "walkin_lidar",
+      "capture": "study",
       "tier": "lidar",
       "room": "room_1",
       "value_cm": 250.0,
       "ci_cm": "[246.2, 253.8]",
-      "truth_cm": 236.0,
-      "error_cm": 14.0,
+      "reference_cm": 253.4,
+      "error_cm": -3.4,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "yes",
+      "reference_source": "magicplan; unseen room, no tape available"
     },
     {
       "run": "walkin_photo",
+      "capture": "study",
       "tier": "photo",
       "room": "room_1",
       "value_cm": 292.6,
       "ci_cm": "[272.6, 312.6]",
-      "truth_cm": 236.0,
-      "error_cm": 56.6,
+      "reference_cm": 253.4,
+      "error_cm": 39.2,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "no",
+      "reference_source": "magicplan; unseen room, no tape available"
     },
     {
       "run": "walkin_video",
+      "capture": "study",
       "tier": "video",
       "room": "room_1",
       "value_cm": 203.0,
       "ci_cm": "[198.2, 207.8]",
-      "truth_cm": 236.0,
-      "error_cm": -33.0,
+      "reference_cm": 253.4,
+      "error_cm": -50.4,
       "gate_1_5cm": "FAIL",
-      "truth_covered_by_ci": "no"
+      "reference_in_ci": "no",
+      "reference_source": "magicplan; unseen room, no tape available"
     }
   ],
   "repeatability": {
@@ -141,9 +163,24 @@
     "spread_cm": 0.0,
     "gate_1cm": "pass"
   },
+  "reference": {
+    "bedroom": {
+      "ceiling_cm": 241.3,
+      "area_m2": 15.36,
+      "openings": 3,
+      "source": "magicplan; tape ceiling 236/240 cm, 4 cm spread"
+    },
+    "study": {
+      "ceiling_cm": 253.4,
+      "area_m2": 10.21,
+      "openings": 1,
+      "source": "magicplan; unseen room, no tape available"
+    }
+  },
   "openings": [
     {
       "run": "capture_1788930419_lidar",
+      "capture": "bedroom",
       "tier": "lidar",
       "detected": 1,
       "real_in_room": 3,
@@ -156,6 +193,7 @@
     },
     {
       "run": "capture_1788930419_photo",
+      "capture": "bedroom",
       "tier": "photo",
       "detected": 0,
       "real_in_room": 3,
@@ -164,6 +202,7 @@
     },
     {
       "run": "capture_1788930419_video",
+      "capture": "bedroom",
       "tier": "video",
       "detected": 0,
       "real_in_room": 3,
@@ -172,6 +211,7 @@
     },
     {
       "run": "repeat_a",
+      "capture": "bedroom",
       "tier": "lidar",
       "detected": 2,
       "real_in_room": 3,
@@ -185,6 +225,7 @@
     },
     {
       "run": "repeat_b",
+      "capture": "bedroom",
       "tier": "lidar",
       "detected": 1,
       "real_in_room": 3,
@@ -197,9 +238,10 @@
     },
     {
       "run": "walkin_lidar",
+      "capture": "study",
       "tier": "lidar",
       "detected": 2,
-      "real_in_room": 3,
+      "real_in_room": 1,
       "by_kind": {
         "door": 1,
         "window": 1
@@ -211,17 +253,19 @@
     },
     {
       "run": "walkin_photo",
+      "capture": "study",
       "tier": "photo",
       "detected": 0,
-      "real_in_room": 3,
+      "real_in_room": 1,
       "by_kind": {},
       "widths_m": []
     },
     {
       "run": "walkin_video",
+      "capture": "study",
       "tier": "video",
       "detected": 0,
-      "real_in_room": 3,
+      "real_in_room": 1,
       "by_kind": {},
       "widths_m": []
     }
@@ -229,83 +273,91 @@
   "tiers": [
     {
       "run": "capture_1788930419_lidar",
+      "capture": "bedroom",
       "tier": "lidar",
       "area_m2": 15.48,
-      "area_vs_lidar_pct": 0.0,
       "ceiling_m": 2.43,
-      "ceiling_vs_lidar_pct": 0.0,
       "runtime_s": 17.86,
-      "rooms": 2
+      "rooms": 2,
+      "area_vs_ref_pct": 0.8,
+      "ceiling_vs_ref_cm": 1.7
     },
     {
       "run": "capture_1788930419_photo",
+      "capture": "bedroom",
       "tier": "photo",
       "area_m2": 10.99,
-      "area_vs_lidar_pct": -29.0,
       "ceiling_m": 2.247,
-      "ceiling_vs_lidar_pct": -7.5,
       "runtime_s": 20.32,
-      "rooms": 1
+      "rooms": 1,
+      "area_vs_ref_pct": -28.4,
+      "ceiling_vs_ref_cm": -16.6
     },
     {
       "run": "capture_1788930419_video",
+      "capture": "bedroom",
       "tier": "video",
       "area_m2": 13.84,
-      "area_vs_lidar_pct": -10.6,
       "ceiling_m": 2.04,
-      "ceiling_vs_lidar_pct": -16.0,
       "runtime_s": 29.09,
-      "rooms": 2
+      "rooms": 2,
+      "area_vs_ref_pct": -9.9,
+      "ceiling_vs_ref_cm": -37.3
     },
     {
       "run": "repeat_a",
+      "capture": "bedroom",
       "tier": "lidar",
       "area_m2": 12.04,
-      "area_vs_lidar_pct": -22.2,
       "ceiling_m": 2.43,
-      "ceiling_vs_lidar_pct": 0.0,
       "runtime_s": 6.61,
-      "rooms": 1
+      "rooms": 1,
+      "area_vs_ref_pct": -21.6,
+      "ceiling_vs_ref_cm": 1.7
     },
     {
       "run": "repeat_b",
+      "capture": "bedroom",
       "tier": "lidar",
       "area_m2": 15.48,
-      "area_vs_lidar_pct": 0.0,
       "ceiling_m": 2.43,
-      "ceiling_vs_lidar_pct": 0.0,
       "runtime_s": 7.34,
-      "rooms": 2
+      "rooms": 2,
+      "area_vs_ref_pct": 0.8,
+      "ceiling_vs_ref_cm": 1.7
     },
     {
       "run": "walkin_lidar",
+      "capture": "study",
       "tier": "lidar",
       "area_m2": 3.19,
-      "area_vs_lidar_pct": -79.4,
       "ceiling_m": 2.5,
-      "ceiling_vs_lidar_pct": 2.9,
       "runtime_s": 10.89,
-      "rooms": 1
+      "rooms": 1,
+      "area_vs_ref_pct": -68.8,
+      "ceiling_vs_ref_cm": -3.4
     },
     {
       "run": "walkin_photo",
+      "capture": "study",
       "tier": "photo",
       "area_m2": 4.63,
-      "area_vs_lidar_pct": -70.1,
       "ceiling_m": 2.926,
-      "ceiling_vs_lidar_pct": 20.4,
       "runtime_s": 17.2,
-      "rooms": 1
+      "rooms": 1,
+      "area_vs_ref_pct": -54.6,
+      "ceiling_vs_ref_cm": 39.2
     },
     {
       "run": "walkin_video",
+      "capture": "study",
       "tier": "video",
       "area_m2": 4.11,
-      "area_vs_lidar_pct": -73.4,
       "ceiling_m": 2.03,
-      "ceiling_vs_lidar_pct": -16.5,
       "runtime_s": 29.06,
-      "rooms": 1
+      "rooms": 1,
+      "area_vs_ref_pct": -59.7,
+      "ceiling_vs_ref_cm": -50.4
     }
   ],
   "head_to_head": [
