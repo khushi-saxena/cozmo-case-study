@@ -1,19 +1,42 @@
 #!/usr/bin/env bash
-# Raw captures are 200-400 MB each and live outside git.
-# Point CAPTURE_URL at wherever the bundle is hosted, or unzip it by hand
-# into benchmark/captures/.
+# Raw captures are ~830 MB total and live outside git.
+#
+# Google Drive interrupts large downloads with a virus-scan page, so this
+# grabs the confirmation token first and then the file. If it fails, the
+# plain share link in the README works in a browser.
 set -e
+
+FILE_ID="16VfuW4t1hZvr9IrdqhAt4pZuEEVgnZdO"
+DEST="/tmp/cozmo-captures.zip"
+
 mkdir -p benchmark/captures
-CAPTURE_URL="${CAPTURE_URL:-https://drive.google.com/uc?export=download&id=FILE_ID}"
-if [ -z "$CAPTURE_URL" ]; then
-  echo "Set CAPTURE_URL to the captures bundle, or unzip the bundle into"
-  echo "benchmark/captures/ manually. Expected folders:"
-  echo "  capture_1788930419   multi-space: bedroom, closet, washroom"
-  echo "  capture_1788475750   bedroom, second capture (repeatability)"
-  echo "  capture_1788461277   bedroom, first capture"
-  echo "  capture_1788482793   open-plan space"
+
+if [ -d benchmark/captures/capture_1788930419 ]; then
+  echo "captures already present"
+  exit 0
+fi
+
+echo "fetching captures (~830 MB)"
+COOKIE=$(mktemp)
+CONFIRM=$(curl -sc "$COOKIE" "https://drive.google.com/uc?export=download&id=${FILE_ID}" \
+          | grep -o 'confirm=[^&"]*' | head -1 | cut -d= -f2)
+
+if [ -n "$CONFIRM" ]; then
+  curl -Lb "$COOKIE" \
+    "https://drive.google.com/uc?export=download&confirm=${CONFIRM}&id=${FILE_ID}" -o "$DEST"
+else
+  curl -Lb "$COOKIE" "https://drive.google.com/uc?export=download&id=${FILE_ID}" -o "$DEST"
+fi
+rm -f "$COOKIE"
+
+if [ "$(stat -f%z "$DEST" 2>/dev/null || stat -c%s "$DEST")" -lt 100000000 ]; then
+  echo "download looks too small - Drive probably returned its warning page."
+  echo "Download by hand instead:"
+  echo "  https://drive.google.com/file/d/${FILE_ID}/view"
+  echo "then: unzip -o <the zip> -d benchmark/"
   exit 1
 fi
-curl -L "$CAPTURE_URL" -o /tmp/captures.zip
-unzip -q -o /tmp/captures.zip -d benchmark/captures/
-echo "captures ready"
+
+unzip -q -o "$DEST" -d benchmark/
+echo "captures ready:"
+ls benchmark/captures/
