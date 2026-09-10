@@ -44,7 +44,14 @@ Settings → General → VPN & Device Management → trust the developer. Under 
 minutes on a Mac with Xcode already installed.
 
 No TestFlight, so this assumes a Mac with Xcode. Stated up front rather than
-discovered later. Full walkthrough in `protocol/capture_protocol.md`.
+discovered later.
+
+**If anything goes wrong, `ios/INSTALL.md` has every failure I hit while
+building this and how to fix each one** - empty Compile Sources, stale build
+cache, expired certificate, device pairing, keychain prompts. It is worth
+skimming before you start rather than after something breaks.
+
+Capture instructions are in `protocol/capture_protocol.md`.
 
 ## Layout
 
@@ -67,20 +74,6 @@ discovered later. Full walkthrough in `protocol/capture_protocol.md`.
 Captures are 200-400 MB each and are not in git. Fetch them:
 
     bash scripts/fetch_captures.sh
-
-
-Download: https://drive.google.com/file/d/16VfuW4t1hZvr9IrdqhAt4pZuEEVgnZdO/view
-
-If the script trips over Google Drive's virus-scan page, grab the zip from that
-link by hand and `unzip -o cozmo-captures.zip -d benchmark/`.
-
-| folder | what it is |
-|---|---|
-| `capture_1788930419` | bedroom, walk-in closet, attached washroom - the multi-space capture |
-| `capture_1789080432` | a study in another building - the walk-in dry run, unseen room |
-| `capture_1788475750` | bedroom, second capture, for the repeatability gate |
-| `capture_1788461277` | bedroom, first capture, before floor sweeps were in the protocol |
-| `capture_1788482793` | open-plan living space |
 
 Everything in `benchmark/runs/` regenerates from them with the commands above.
 
