@@ -19,6 +19,7 @@ from pipeline.geometry.outline import (wall_heading, rotation, footprint,
 from pipeline.geometry.rooms import wall_grid, segment_rooms, adjacency
 from pipeline.geometry.openings import openings_for_wall
 from pipeline.render.plan import render_svg
+from pipeline.damage import detect as damage_detect, rules as damage_rules, scope as damage_scope
 
 
 def normals(pts, k=60, sample=200_000, seed=0):
@@ -198,6 +199,36 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
                     "beyond_fraction": o["beyond_fraction"],
                 })
 
+        # damage on each wall of this room
+        dmg = []
+        if tier == "lidar":
+            for w in walls:
+                a2, b2 = np.array(w["start"]), np.array(w["end"])
+                d2 = b2 - a2
+                L2 = np.linalg.norm(d2)
+                if L2 < 1.0:
+                    continue
+                nn = R.T @ (np.array([-d2[1], d2[0]]) / L2)
+                offn = float(nn @ (R.T @ a2))
+                along = np.array([-nn[1], nn[0]])
+                taa, tbb = (R.T @ a2) @ along, (R.T @ b2) @ along
+                painted = damage_detect.surface_colours(
+                    capture, poses, nn, offn, fl, ce,
+                    min(taa, tbb) - 0.1, max(taa, tbb) + 0.1)
+                if painted is None:
+                    continue
+                colour, cnt, dcell, _, _ = painted
+                for k, d in enumerate(damage_detect.find_damage(colour, cnt, dcell)):
+                    dmg.append({
+                        "damage_id": f"{room_id}_damage_{len(dmg) + 1}",
+                        "surface_id": w["surface_id"],
+                        "damage_class": d["damage_class"],
+                        "extent_m2": measurement(d["extent_m2"], 0.25 * d["extent_m2"] + 0.02,
+                                                 "m2", "colour deviation on surface, 5cm cells"),
+                        "bbox_on_surface": d["bbox_on_surface"],
+                        "classifier_score": d["mean_deviation"],
+                    })
+
         A = area(poly_rect)
         rooms.append({
             "room_id": room_id,
@@ -208,9 +239,17 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
             "floor_area": measurement(A, 0.08 * A + 0.1, "m2", "polygon area, 8% plus raster margin"),
             "walls": walls,
             "openings": ops,
-            "damage": [],
+            "damage": dmg,
             "concealed_damage_flags": [],
         })
+
+    flat = [{"room_id": r["room_id"],
+             "damage": [{**d, "extent_m2": d["extent_m2"]["value"]} for d in r["damage"]]}
+            for r in rooms]
+    flags = damage_rules.evaluate(flat)
+    for r in rooms:
+        r["concealed_damage_flags"] = [f for f in flags
+                                       if f["flag_id"].startswith(r["room_id"])]
 
     total = sum(r["floor_area"]["value"] for r in rooms)
     out = {
@@ -240,7 +279,7 @@ def run(capture, tier, out_dir, stride=4, voxel=0.03, drift_correction=True):
                                "loop_closures": 1 if drift_info.get("applied") else 0,
                                "residual_after_closure_m": float(drift_info.get("closure_translation_m", 0.0))},
         },
-        "scope_line_items": [],
+        "scope_line_items": damage_scope.build(flat, flags),
     }
 
     out_dir = Path(out_dir)
@@ -334,6 +373,8 @@ def main():
     print(f"{len(r['rooms'])} rooms, {r['property']['total_floor_area']['value']:.2f} m2, "
           f"ceiling {r['rooms'][0]['ceiling_height']['value']:.3f} m, "
           f"{sum(len(x['openings']) for x in r['rooms'])} openings, "
+          f"{sum(len(x['damage']) for x in r['rooms'])} damage, "
+          f"{len(r['scope_line_items'])} scope items, "
           f"{r['runtime']['seconds_total']}s -> {out}/")
 
 

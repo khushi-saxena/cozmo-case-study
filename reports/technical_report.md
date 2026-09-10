@@ -32,7 +32,8 @@ One command per capture:
 
     python3 scripts/run.py --capture <dir> --tier <lidar|video|photo>
 
-Runtime on the target laptop: LiDAR 7.5 s, photo 20.2 s, video 27.5 s. Nothing
+Runtime on the target laptop: LiDAR 7.5 s without damage detection, 33 s with
+it; photo 20.2 s; video 27.5 s. Nothing
 calls out to a network at inference time. Model weights are fetched once by
 script into the local cache.
 
@@ -288,10 +289,28 @@ underestimate.
 
 **Damage detection is unvalidated.** I could not stage damage - I rent a room
 in a shared apartment and cannot modify surfaces or capture other people's
-rooms. The damage and scope-item paths are implemented and run, and correctly
-report no damage on an undamaged room, but they have never been tested against
-known damage of known extent. This is a real gap and I am not going to dress
-it up as anything else.
+rooms.
+
+What is implemented: each wall is painted with the colours seen in the RGB
+frames, and regions whose colour departs from that surface's own median by
+more than 4 sigma over at least 0.15 m2 are flagged. Working per-surface is
+what makes this work at all - a wall is mostly one colour, so "unlike the rest
+of this wall" means something, where "unlike the rest of the room" would not.
+Brightness delta then splits water staining from burns or holes.
+
+Thresholds are deliberately hard. The loose version returned four regions of
+0.05-0.12 m2 on my undamaged bedroom - posters, shadows, a dark curtain. On a
+clean room the tightened version returns nothing, which is the right answer.
+It will also miss faint staining, and since nothing here has been checked
+against real damage, erring toward silence is the only setting I can defend.
+
+The concealed-damage rules and the scope-item generator are deterministic and
+self-tested: fed a 0.62 m2 ceiling stain they fire CD-001 and CD-004 and emit
+five line items keyed to the surface. But the perception half has never seen
+real damage, so treat every extent it produces as unverified.
+
+Damage detection costs runtime: 7.5 s to 33 s on the multi-space capture,
+because it reads and reprojects the RGB frames per wall.
 
 **Mirrors, glass, wet-look surfaces, low light: untested.** The washroom in
 the multi-space capture has a mirror and glass, and the pipeline segmented it
