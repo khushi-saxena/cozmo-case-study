@@ -98,6 +98,39 @@
       "error_cm": 7.0,
       "gate_1_5cm": "FAIL",
       "truth_covered_by_ci": "no"
+    },
+    {
+      "run": "walkin_lidar",
+      "tier": "lidar",
+      "room": "room_1",
+      "value_cm": 250.0,
+      "ci_cm": "[246.2, 253.8]",
+      "truth_cm": 236.0,
+      "error_cm": 14.0,
+      "gate_1_5cm": "FAIL",
+      "truth_covered_by_ci": "no"
+    },
+    {
+      "run": "walkin_photo",
+      "tier": "photo",
+      "room": "room_1",
+      "value_cm": 292.6,
+      "ci_cm": "[272.6, 312.6]",
+      "truth_cm": 236.0,
+      "error_cm": 56.6,
+      "gate_1_5cm": "FAIL",
+      "truth_covered_by_ci": "no"
+    },
+    {
+      "run": "walkin_video",
+      "tier": "video",
+      "room": "room_1",
+      "value_cm": 203.0,
+      "ci_cm": "[198.2, 207.8]",
+      "truth_cm": 236.0,
+      "error_cm": -33.0,
+      "gate_1_5cm": "FAIL",
+      "truth_covered_by_ci": "no"
     }
   ],
   "repeatability": {
@@ -161,6 +194,36 @@
       "widths_m": [
         1.6
       ]
+    },
+    {
+      "run": "walkin_lidar",
+      "tier": "lidar",
+      "detected": 2,
+      "real_in_room": 3,
+      "by_kind": {
+        "door": 1,
+        "window": 1
+      },
+      "widths_m": [
+        2.2,
+        1.75
+      ]
+    },
+    {
+      "run": "walkin_photo",
+      "tier": "photo",
+      "detected": 0,
+      "real_in_room": 3,
+      "by_kind": {},
+      "widths_m": []
+    },
+    {
+      "run": "walkin_video",
+      "tier": "video",
+      "detected": 0,
+      "real_in_room": 3,
+      "by_kind": {},
+      "widths_m": []
     }
   ],
   "tiers": [
@@ -213,6 +276,36 @@
       "ceiling_vs_lidar_pct": 0.0,
       "runtime_s": 7.34,
       "rooms": 2
+    },
+    {
+      "run": "walkin_lidar",
+      "tier": "lidar",
+      "area_m2": 3.19,
+      "area_vs_lidar_pct": -79.4,
+      "ceiling_m": 2.5,
+      "ceiling_vs_lidar_pct": 2.9,
+      "runtime_s": 10.89,
+      "rooms": 1
+    },
+    {
+      "run": "walkin_photo",
+      "tier": "photo",
+      "area_m2": 4.63,
+      "area_vs_lidar_pct": -70.1,
+      "ceiling_m": 2.926,
+      "ceiling_vs_lidar_pct": 20.4,
+      "runtime_s": 17.2,
+      "rooms": 1
+    },
+    {
+      "run": "walkin_video",
+      "tier": "video",
+      "area_m2": 4.11,
+      "area_vs_lidar_pct": -73.4,
+      "ceiling_m": 2.03,
+      "ceiling_vs_lidar_pct": -16.5,
+      "runtime_s": 29.06,
+      "rooms": 1
     }
   ],
   "head_to_head": [
