@@ -4,7 +4,8 @@
 # into benchmark/captures/.
 set -e
 mkdir -p benchmark/captures
-if [ -z "${CAPTURE_URL:-}" ]; then
+CAPTURE_URL="${CAPTURE_URL:-https://drive.google.com/uc?export=download&id=FILE_ID}"
+if [ -z "$CAPTURE_URL" ]; then
   echo "Set CAPTURE_URL to the captures bundle, or unzip the bundle into"
   echo "benchmark/captures/ manually. Expected folders:"
   echo "  capture_1788930419   multi-space: bedroom, closet, washroom"
