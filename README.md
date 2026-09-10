@@ -10,7 +10,7 @@ measurement. Photo, video and LiDAR inputs all run through the same pipeline.
 Needs Python 3.11+ and a Mac or Linux box. About 5 minutes from clone to a
 plan, most of it downloading model weights the first time.
 
-    git clone <repo> && cd cozmo-case-study
+    git clone https://github.com/khushi-saxena/cozmo-case-study && cd cozmo-case-study
     python3 -m venv .venv && source .venv/bin/activate
     pip install -r requirements.txt
     bash scripts/fetch_weights.sh
