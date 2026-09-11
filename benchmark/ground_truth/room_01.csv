@@ -1,4 +1,4 @@
 room_id,surface_id,type,pass_1_cm,pass_2_cm,notes
-room_01,,ceiling_height,236.0,,tape, single spot, needs re-measure
-room_01,door_1,opening_width,76.0,,tape, jamb to jamb
-room_01,door_1,opening_height,197.0,,tape
+room_01,,ceiling_height,236.0,240.0,"tape, two passes at different spots on different walls; they disagree by 4 cm, which is why this room is scored against magicplan rather than against tape - technical report section 4"
+room_01,door_1,opening_width,76.0,,"tape, inside the frame jamb to jamb at waist height; standard 30in interior door"
+room_01,door_1,opening_height,197.0,,"tape, floor to underside of the frame head"
