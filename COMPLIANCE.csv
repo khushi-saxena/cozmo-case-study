@@ -3,7 +3,7 @@ C-01,Part 1,Capture route chosen and delivered (own iOS app),ios/CozmoCapture/,X
 C-02,Part 1,Build installable on their device in under 10 minutes,README.md + protocol/capture_protocol.md,timed install steps,done,Xcode project not TestFlight; needs a Mac with Xcode; stated in README
 C-03,Part 1,Photo tier: 2-8 stills per room from iPhone 15 or newer,ios/CozmoCapture/CozmoCapture/CaptureRecorder.swift,shutter capture,done,49 stills in benchmark capture
 C-04,Part 1,Photo tier: no depth and no poses in the data,ios/CozmoCapture/CozmoCapture/CaptureRecorder.swift,stills export strips pose and depth,done,honestly poseless by construction
-C-05,Part 1,Photo tier: one folder per room,ios/CozmoCapture/CozmoCapture/CaptureRecorder.swift,per-room folder export,partial,app supports it; benchmark capture used one folder name throughout
+C-05,Part 1,Photo tier: one folder per room,ios/CozmoCapture/ + scripts/split_stills.py,per-room folder export,done,app supports naming per room; on the benchmark capture one name was used throughout so the folders were recovered by split_stills.py - disclosed in report section 8
 C-06,Part 1,Video tier: handheld walkthrough from iPhone 15 or newer,pipeline/ingest/video.py,video tier front end,done,frames + VIO poses; depth ignored
 C-07,Part 1,LiDAR tier: depth poses and intrinsics on Pro devices,pipeline/ingest/lidar.py,lidar tier front end,done,
 C-08,Part 1,Device matrix: which tier runs on which hardware,protocol/device_matrix.md,table,done,
@@ -20,7 +20,7 @@ C-18,Part 2,Confidence interval on every measurement,scripts/run.py,every measur
 C-19,Part 2,One command per capture,scripts/run.py,run.py --capture --tier,done,
 C-20,Part 2,JSON conforms to published schema,pipeline/schema/output_v1.json,schema + jsonschema validation,done,validated on lidar and photo outputs
 C-21,Part 2,Rendered plan,pipeline/render/plan.py,plan.svg per run,done,
-C-22,Part 2,Stitched whole-property plan from every tier including photos,scripts/run.py,JSON property,partial,lidar and video stitch two spaces; photo tier does not split rooms
+C-22,Part 2,Stitched whole-property plan from every tier including photos,scripts/run.py,JSON property,done,all three tiers produce two rooms with adjacency
 C-23,Benchmark,One multi-room capture three or more rooms plus connector,benchmark/captures/capture_1788930419,raw capture,partial,two spaces plus connector not three; reason in report section 8
 C-24,Benchmark,One furnished room with staged damage two classes,,,not done,could not stage damage in a shared rented apartment; stated in report section 8
 C-25,Benchmark,Same rooms captured at all three tiers,benchmark/runs/,three tier runs on one capture,done,one capture drives all three tiers
@@ -34,11 +34,11 @@ C-32,Gate,Report states repeatable-but-biased or unrepeatable,reports/technical_
 C-33,Gate,Repeatability within 1 cm or 0.5 percent per wall,benchmark/harness/gate_report.json,repeatability table,pass,on ceiling height
 C-34,Gate,Drift handling described in report,reports/technical_report.md,section 3,done,loop closure; not poses as-is
 C-35,Gate,Drift ablation showing stitched footprint on and off,reports/technical_report.md,section 3 table,done,13.55 vs 14.87 m2 via --no-drift-correction
-C-36,Gate,Photo tier stitch correct adjacency and no overlaps,benchmark/runs/capture_1788930419_photo/,photo run,fail,photo tier does not split rooms
-C-37,Gate,Photo tier footprint within 8 percent with calibrated intervals,benchmark/harness/gate_report.json,gate report,fail,-29 percent; reported as a lower bound with upward-skewed interval
+C-36,Gate,Photo tier stitch correct adjacency and no overlaps,benchmark/runs/capture_1788930419_photo/,photo run,partial,two rooms with adjacency and no overlaps from per-room folders; footprint -33 percent against a plus-minus 8 percent gate
+C-37,Gate,Photo tier footprint within 8 percent with calibrated intervals,benchmark/harness/gate_report.json,gate report,fail,-33 percent; reported as a lower bound with upward-skewed interval
 C-38,Gate,Photo tier wall lengths within 8 percent,benchmark/harness/gate_report.json,gate report,fail,see C-37
 C-39,Gate,Video tier wall lengths within 3 percent,benchmark/harness/gate_report.json,gate report,fail,-10.6 percent on area
-C-40,Gate,Calibration scored at every tier,reports/technical_report.md,section 5,done,lidar and photo intervals cover magicplan; video does not and the report says why
+C-40,Gate,Calibration scored at every tier,reports/technical_report.md,section 5,done,lidar interval covers magicplan; video and photo do not and the report says why; photo between-still spread 57-83 cm exceeds its own stated interval
 C-41,Part 3,Head to head on benchmark rooms at LiDAR tier,benchmark/harness/gate_report.json,comparison table,done,two rooms: bedroom and study
 C-42,Part 3,Consumer app named with version and export submitted,benchmark/incumbent/,screenshots + CSV,done,magicplan 2026.35.0; polycam free tier would not process floorplan mode
 C-43,Part 3,Beat or tie on 70 percent or more of shared dimensions,benchmark/harness/gate_report.json,comparison table,pass,2 of 2 shared dimensions within 1.7 cm and 0.8 percent

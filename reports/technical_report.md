@@ -33,7 +33,7 @@ One command per capture:
     python3 scripts/run.py --capture <dir> --tier <lidar|video|photo>
 
 Runtime on the target laptop, measured on the multi-space capture: LiDAR
-17.9 s, photo 20.3 s, video 29.1 s. LiDAR was 7.5 s before damage detection
+17.9 s, video 29.1 s, photo 40.0 s (two rooms of stills rather than one). LiDAR was 7.5 s before damage detection
 was added; painting each wall from the RGB frames is what costs the rest. Nothing
 calls out to a network at inference time. Model weights are fetched once by
 script into the local cache.
@@ -85,7 +85,7 @@ against the LiDAR tier as reference:
 |---|---|---|---|---|
 | LiDAR | 15.48 m2 | 2.430 m | 2 | 17.9 s |
 | Video | 13.84 m2 (-10.6%) | 2.040 m (-16.0%) | 2 | 29.1 s |
-| Photo | 10.99 m2 (-29.0%) | 2.247 m (-7.5%) | 1 | 20.3 s |
+| Photo | 10.35 m2 (-33.1%) | 2.934 m (+20.7%) | 2 | 40.0 s |
 
 Photo-tier area is reported as a lower bound with an interval skewed upward,
 because a still only ever sees part of a room.
@@ -173,20 +173,27 @@ Coverage against what truth I have:
 | tier | ceiling height | 90% interval | contains magicplan 241.3 |
 |---|---|---|---|
 | LiDAR | 243.0 cm | [238.7, 247.3] | yes |
-| Photo | 224.7 cm | [204.7, 244.7] | yes |
+| Photo | 293.4 cm | [273.4, 313.4] | no |
 | Video | 204.0 cm | [198.7, 209.3] | no |
 
-Two of three tiers cover it. The video tier does not, and that is a real
-calibration failure: the video interval is 5 cm wide when the error is 37 cm.
+Only the LiDAR tier covers it. Video and photo do not, and both are real
+calibration failures: the video interval is 5 cm wide when the error is 37 cm.
 The interval is too narrow because it is derived from plane-fit scatter, and a
 monocular cloud can be tightly scattered around a plane that is in the wrong
 place. Scatter measures precision, not accuracy, and for the video tier I
 conflated them.
 
-The photo tier is calibrated the other way and deliberately so: a 20 cm
-half-interval on a number derived from single-image depth, and floor areas
-reported as lower bounds with upward-skewed intervals. Wide and honest beats
-narrow and wrong when the gate scores calibration.
+The photo tier is deliberately wide - a 20 cm half-interval on a number
+derived from single-image depth - and it is still not wide enough. The spread
+of ceiling height *between stills of the same room* is 83 cm in one room and
+57 cm in the other. Individual photos disagree with each other by nearly a
+metre, so a 40 cm interval around their median was never going to hold. An
+interval derived from the observed between-still spread, rather than a fixed
+prior, is the correct fix and is not done.
+
+That is the single clearest calibration finding in this submission: at the
+photo tier my uncertainty estimate is smaller than my disagreement with
+myself.
 
 Repeatability, two separate captures of the same bedroom, same tier:
 
@@ -341,7 +348,24 @@ section 5 says.
 **Photo tier areas are lower bounds.** A still sees part of a room. I take the
 best single still's extent rather than mixing spans from different stills,
 which stops a 36 m2 answer on a 15 m2 room but leaves a systematic
-underestimate.
+underestimate of about a third.
+
+**Photo tier ceiling heights are 20% high and their intervals are too narrow.**
+See section 5. The between-still spread within one room is 57-83 cm.
+
+**Photo tier room folders were recovered after the fact.** The contract is one
+folder per room, and in normal use you type the room name in the app before
+shooting that room. On the benchmark capture I left one name in the field for
+the whole session, so all 49 stills landed in one folder.
+`scripts/split_stills.py` recovers the split: match each still to the
+walkthrough frame beside it by image correlation (median confidence 0.99 on
+this capture, and the matched frame indices come out monotonically increasing,
+which is what you would expect if the stills were taken in walking order),
+read that frame's position, and look up which room it falls in. The LiDAR
+segmentation is used only to label folders - a step a user replaces by typing
+a room name - and no pose or depth reaches the photo tier itself, which still
+sees nothing but JPEGs. Worth being explicit about: the folder labels on this
+one capture are derived, not captured.
 
 **Damage detection is unvalidated.** I could not stage damage - I rent a room
 in a shared apartment and cannot modify surfaces or capture other people's
