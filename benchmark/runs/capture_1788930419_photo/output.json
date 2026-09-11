@@ -8,8 +8,8 @@
     "depth_available": false
   },
   "runtime": {
-    "seconds_total": 20.32,
-    "frames_used": 7,
+    "seconds_total": 39.97,
+    "frames_used": 14,
     "frames_dropped_by_app": 0,
     "frames_rejected_tracking": 0
   },
@@ -24,39 +24,39 @@
   "rooms": [
     {
       "room_id": "room_1",
-      "source_folder": "room_01_recapture",
+      "source_folder": "room_1",
       "polygon": [
         [
           0.0,
           0.0
         ],
         [
-          4.162074070266236,
+          3.720029961587849,
           0.0
         ],
         [
-          4.162074070266236,
-          2.6415838965324014
+          3.720029961587849,
+          1.3633239998738236
         ],
         [
           0.0,
-          2.6415838965324014
+          1.3633239998738236
         ]
       ],
       "ceiling_height": {
-        "value": 2.246884051592654,
+        "value": 2.9342181303254007,
         "unit": "m",
-        "ci_low": 2.0468840515926536,
-        "ci_high": 2.446884051592654,
+        "ci_low": 2.7342181303254005,
+        "ci_high": 3.134218130325401,
         "ci_level": 0.9,
-        "method": "median of 2 stills with floor and ceiling visible",
-        "n_points": 7
+        "method": "median of 4 stills with floor and ceiling visible",
+        "n_points": 8
       },
       "floor_area": {
-        "value": 10.994467840190355,
+        "value": 5.071606126882413,
         "unit": "m2",
-        "ci_low": 10.994467840190355,
-        "ci_high": 17.59114854430457,
+        "ci_low": 5.071606126882413,
+        "ci_high": 8.114569803011861,
         "ci_level": 0.9,
         "method": "product of max lateral extents seen in any still; lower bound"
       },
@@ -64,10 +64,10 @@
         {
           "surface_id": "room_1_wall_1",
           "length": {
-            "value": 4.162074070266236,
+            "value": 3.720029961587849,
             "unit": "m",
-            "ci_low": 4.162074070266236,
-            "ci_high": 5.410696291346107,
+            "ci_low": 3.720029961587849,
+            "ci_high": 4.8360389500642045,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
@@ -76,61 +76,61 @@
             0.0
           ],
           "end": [
-            4.162074070266236,
+            3.720029961587849,
             0.0
           ]
         },
         {
           "surface_id": "room_1_wall_2",
           "length": {
-            "value": 2.6415838965324014,
+            "value": 1.3633239998738236,
             "unit": "m",
-            "ci_low": 2.6415838965324014,
-            "ci_high": 3.434059065492122,
+            "ci_low": 1.3633239998738236,
+            "ci_high": 1.7723211998359707,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
           "start": [
-            4.162074070266236,
+            3.720029961587849,
             0.0
           ],
           "end": [
-            4.162074070266236,
-            2.6415838965324014
+            3.720029961587849,
+            1.3633239998738236
           ]
         },
         {
           "surface_id": "room_1_wall_3",
           "length": {
-            "value": 4.162074070266236,
+            "value": 3.720029961587849,
             "unit": "m",
-            "ci_low": 4.162074070266236,
-            "ci_high": 5.410696291346107,
+            "ci_low": 3.720029961587849,
+            "ci_high": 4.8360389500642045,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
           "start": [
-            4.162074070266236,
-            2.6415838965324014
+            3.720029961587849,
+            1.3633239998738236
           ],
           "end": [
             0.0,
-            2.6415838965324014
+            1.3633239998738236
           ]
         },
         {
           "surface_id": "room_1_wall_4",
           "length": {
-            "value": 2.6415838965324014,
+            "value": 1.3633239998738236,
             "unit": "m",
-            "ci_low": 2.6415838965324014,
-            "ci_high": 3.434059065492122,
+            "ci_low": 1.3633239998738236,
+            "ci_high": 1.7723211998359707,
             "ci_level": 0.9,
             "method": "max extent in any still; lower bound"
           },
           "start": [
             0.0,
-            2.6415838965324014
+            1.3633239998738236
           ],
           "end": [
             0.0,
@@ -143,21 +143,154 @@
       "concealed_damage_flags": [],
       "photo_tier_detail": {
         "n_stills": 8,
-        "n_usable": 7,
-        "ceiling_height_spread_across_stills": 0.7678834434424735
+        "n_usable": 8,
+        "ceiling_height_spread_across_stills": 0.8263456255972734
+      }
+    },
+    {
+      "room_id": "room_2",
+      "source_folder": "room_2",
+      "polygon": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          2.7497149084284414,
+          0.0
+        ],
+        [
+          2.7497149084284414,
+          1.9194971713927682
+        ],
+        [
+          0.0,
+          1.9194971713927682
+        ]
+      ],
+      "ceiling_height": {
+        "value": 2.9953063929414045,
+        "unit": "m",
+        "ci_low": 2.7953063929414044,
+        "ci_high": 3.1953063929414047,
+        "ci_level": 0.9,
+        "method": "median of 4 stills with floor and ceiling visible",
+        "n_points": 6
+      },
+      "floor_area": {
+        "value": 5.278069988864917,
+        "unit": "m2",
+        "ci_low": 5.278069988864917,
+        "ci_high": 8.444911982183868,
+        "ci_level": 0.9,
+        "method": "product of max lateral extents seen in any still; lower bound"
+      },
+      "walls": [
+        {
+          "surface_id": "room_2_wall_1",
+          "length": {
+            "value": 2.7497149084284414,
+            "unit": "m",
+            "ci_low": 2.7497149084284414,
+            "ci_high": 3.574629380956974,
+            "ci_level": 0.9,
+            "method": "max extent in any still; lower bound"
+          },
+          "start": [
+            0.0,
+            0.0
+          ],
+          "end": [
+            2.7497149084284414,
+            0.0
+          ]
+        },
+        {
+          "surface_id": "room_2_wall_2",
+          "length": {
+            "value": 1.9194971713927682,
+            "unit": "m",
+            "ci_low": 1.9194971713927682,
+            "ci_high": 2.4953463228105988,
+            "ci_level": 0.9,
+            "method": "max extent in any still; lower bound"
+          },
+          "start": [
+            2.7497149084284414,
+            0.0
+          ],
+          "end": [
+            2.7497149084284414,
+            1.9194971713927682
+          ]
+        },
+        {
+          "surface_id": "room_2_wall_3",
+          "length": {
+            "value": 2.7497149084284414,
+            "unit": "m",
+            "ci_low": 2.7497149084284414,
+            "ci_high": 3.574629380956974,
+            "ci_level": 0.9,
+            "method": "max extent in any still; lower bound"
+          },
+          "start": [
+            2.7497149084284414,
+            1.9194971713927682
+          ],
+          "end": [
+            0.0,
+            1.9194971713927682
+          ]
+        },
+        {
+          "surface_id": "room_2_wall_4",
+          "length": {
+            "value": 1.9194971713927682,
+            "unit": "m",
+            "ci_low": 1.9194971713927682,
+            "ci_high": 2.4953463228105988,
+            "ci_level": 0.9,
+            "method": "max extent in any still; lower bound"
+          },
+          "start": [
+            0.0,
+            1.9194971713927682
+          ],
+          "end": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "openings": [],
+      "damage": [],
+      "concealed_damage_flags": [],
+      "photo_tier_detail": {
+        "n_stills": 7,
+        "n_usable": 6,
+        "ceiling_height_spread_across_stills": 0.5716940149759582
       }
     }
   ],
   "property": {
     "total_floor_area": {
-      "value": 10.994467840190355,
+      "value": 10.34967611574733,
       "unit": "m2",
-      "ci_low": 10.994467840190355,
-      "ci_high": 17.59114854430457,
+      "ci_low": 10.34967611574733,
+      "ci_high": 16.55948178519573,
       "ci_level": 0.9,
       "method": "sum of lower bounds"
     },
-    "adjacency": [],
+    "adjacency": [
+      {
+        "room_a": "room_1",
+        "room_b": "room_2",
+        "via_opening": null,
+        "confidence": 0.5,
+        "basis": "capture protocol: rooms photographed in walking order"
+      }
+    ],
     "drift_handling": {
       "method": "n/a, no poses at photo tier",
       "enabled": false,
